@@ -1,0 +1,3710 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#4a90e2"/>
+    <link rel="manifest" href="manifest.json">
+
+     <link rel="icon" type="image/png" href="waxqabad.jpg">
+    <!-- or if you use .ico: -->
+    <title>WPS</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        :root {
+            --primary: #4a90e2;
+            --success: #28a745;
+            --danger: #dc3545;
+            --warning: #ffc107;
+
+            /* Light Theme (Default) */
+            --bg-color: #f5f6fa;
+            --text-color: #2d3436;
+            --surface-color: white; /* For cards, sections, sidebar, modals */
+            --border-color: #ddd;
+            --table-header-bg: #f0f0f0;
+            --input-bg: white;
+            --input-border: #ddd;
+            --input-text: #2d3436;
+            --placeholder-color: #a0a0a0;
+            --nav-link-hover-bg: #e9eef3;
+            --button-text-color: white;
+            --button-hover-bg: #357ab7;
+            --card-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            --card-hover-shadow: 0 8px 32px rgba(74, 144, 226, 0.18), 0 2px 8px rgba(44, 62, 80, 0.10);
+            --card-hover-bg: linear-gradient(135deg, #e3f0ff 0%, #f5fafd 100%);
+            --alert-success-bg: #d4edda;
+            --alert-success-text: #155724;
+            --alert-success-border: #c3e6cb;
+            --alert-danger-bg: #f8d7da;
+            --alert-danger-text: #721c24;
+            --alert-danger-border: #f5c6cb;
+        }
+
+        body.dark-mode {
+            --primary: #5a9ee3; /* Adjusted primary for dark mode */
+            --bg-color: #1e272e;
+            --text-color: #e1e1e1;
+            --surface-color: #2c3a47;
+            --border-color: #4a5568;
+            --table-header-bg: #3a4753;
+            --input-bg: #3a4753;
+            --input-border: #5a6678;
+            --input-text: #f0f0f0;
+            --placeholder-color: #888888;
+            --nav-link-hover-bg: #3a4753;
+            --button-hover-bg: #4a8bc9;
+            --card-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            --card-hover-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+            --card-hover-bg: linear-gradient(135deg, #2a3f50 0%, #354a5d 100%);
+            --alert-success-bg: #103c1f;
+            --alert-success-text: #a6e0b6;
+            --alert-success-border: #1a572a;
+            --alert-danger-bg: #4a151b;
+            --alert-danger-text: #f5c6cb;
+            --alert-danger-border: #721c24;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 220px 1fr;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            background: var(--surface-color);
+            color: var(--text-color);
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar h2 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            margin: 5px 0;
+            text-decoration: none;
+            color: var(--text-color);
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        .nav-link:hover {
+            background: var(--nav-link-hover-bg);
+        }
+
+        .nav-link i {
+            margin-right: 10px;
+            width: 20px;
+            /* Ensure consistent icon size */
+            text-align: center;
+            /* Center icons */
+        }
+
+        .main-content {
+            padding: 30px;
+        }
+
+        .section {
+            background: var(--surface-color);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid var(--border-color);
+            background-color: var(--input-bg);
+            color: var(--input-text);
+            border-radius: 4px;
+            margin-top: 5px;
+        }
+        input::placeholder, textarea::placeholder {
+            color: var(--placeholder-color);
+            opacity: 1; /* Firefox */
+        }
+
+        button {
+            background: var(--primary);
+            color: var(--button-text-color);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        button:hover {
+            background: var(--button-hover-bg);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: var(--table-header-bg);
+            color: var(--text-color);
+        }
+
+        .dashboard-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            /* Responsive cards */
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--surface-color);
+            width: 100%;
+            padding: 37px;
+            border-radius: 10px;
+            box-shadow: var(--card-shadow);
+            text-align: center;
+            
+        }
+
+        .card h3 {
+            margin-bottom: 10px;
+        }
+
+        /* Alert Styles */
+        .alert {
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            display: none; /* Initially hidden */
+        }
+
+        .alert-success {
+            background-color: var(--alert-success-bg);
+            color: var(--alert-success-text);
+            border: 1px solid var(--alert-success-border);
+        }
+        .alert.show {
+            display: block; /* Class to show the alert */
+        }
+
+        .alert-danger {
+            background-color: var(--alert-danger-bg);
+            color: var(--alert-danger-text);
+            border: 1px solid var(--alert-danger-border);
+        }
+
+
+        /* Utility Classes */
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-2 {
+            margin-top: 1rem;
+        }
+
+        .mb-2 {
+            margin-bottom: 1rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+                /* Stack sidebar and main content */
+            }
+
+            .sidebar {
+                width: 100%;
+                box-shadow: none;
+            }
+
+            .main-content {
+                padding: 20px;
+            }
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            /* Stay in place */
+            z-index: 1;
+            /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%;
+            /* Full width */
+            height: 100%;
+            /* Full height */
+            overflow: auto;
+            /* Enable scroll if needed */
+            background-color: rgba(0, 0, 0, 0.4);
+            /* Black w/ opacity */
+        }
+
+        .modal-content {
+            background-color: var(--surface-color);
+            margin: 15% auto;
+            /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid var(--border-color);
+            width: 80%; /* Could be more or less, depending on screen size */
+            /* Could be more or less, depending on screen size */
+            border-radius: 5px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none; /* Consider var(--text-color) if black is too stark in dark mode */
+            cursor: pointer;
+        }
+
+        /* Medicine Details Modal */
+        #medicineDetailsModal .modal-content {
+            width: 60%;
+            /* Adjust width as needed */
+        }
+
+        #medicineDetailsModal h2 {
+            margin-bottom: 15px;
+        }
+
+        #medicineDetailsModal p {
+            margin-bottom: 8px;
+        }
+
+        #medicineDetailsModal button {
+            margin-top: 15px;
+        }
+
+        /* Responsive adjustments for the modal */
+        @media (max-width: 600px) {
+            .modal-content {
+                width: 95%;
+                /* Take up more width on smaller screens */
+                margin: 20% auto;
+                /* Adjust top margin */
+            }
+
+            #medicineDetailsModal .modal-content {
+                width: 95%;
+                /* Take up more width on smaller screens */
+            }
+        }
+
+        /* Custom Styles for Register Customer Modal */
+        #registerCustomerModal .modal-content {
+            width: 50%;
+            /* Adjust width as needed */
+        }
+
+        #registerCustomerModal h2 {
+            margin-bottom: 15px;
+        }
+
+        #registerCustomerModal button {
+            margin-top: 15px;
+        }
+
+        /* Styles for aligning the Add Customer button */
+        .customer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        /* Styles for Medicine List */
+        .medicine-list {
+            margin-top: 20px;
+        }
+
+        .medicine-list h3 {
+            margin-bottom: 10px;
+        }
+
+        .medicine-item {
+            background: var(--nav-link-hover-bg); /* Slightly different from surface for distinction */
+            border: 1px solid var(--border-color);
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+        /* General Styles */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+}
+
+/* Container Layout */
+.container {
+    display: grid;
+    grid-template-columns: 220px 1fr; /* Sidebar and main content */
+    min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+    background: var(--surface-color);
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar h2 {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    margin: 5px 0;
+    text-decoration: none;
+    color: var(--text-color);
+    border-radius: 5px;
+    transition: all 0.3s;
+}
+
+.nav-link:hover {
+    background: var(--nav-link-hover-bg);
+}
+
+.nav-link i {
+    margin-right: 10px;
+    width: 20px;
+    text-align: center;
+}
+
+/* Main Content */
+.main-content {
+    padding: 30px;
+}
+
+/* Section Styles */
+.section {
+    background: var(--surface-color);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: var(--card-shadow);
+    margin-bottom: 20px;
+}
+
+/* Dashboard Cards */
+.dashboard-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive grid */
+    gap: 30px;
+}
+
+.card {
+    background: var(--surface-color);
+    padding: 35px;
+    border-radius: 10px;
+    box-shadow: var(--card-shadow);
+    text-align: center;
+}
+
+.card h3 {
+    margin-bottom: 10px;
+}
+
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+th {
+    background-color: var(--table-header-bg);
+}
+
+/* Form Styles */
+input, select, textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid var(--input-border);
+    background-color: var(--input-bg);
+    color: var(--input-text);
+    border-radius: 4px;
+    margin-top: 5px;
+}
+button {
+    background: var(--primary); /* Uses themed primary */
+    color: var(--button-text-color);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background: var(--button-hover-bg);
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: var(--surface-color);
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid var(--border-color);
+    width: 80%; /* This was duplicated, keeping one */
+    border-radius: 5px;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover, .close:focus {
+    color: black;
+    text-decoration: none; /* Consider var(--text-color) if black is too stark in dark mode */
+    cursor: pointer;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .container {
+        grid-template-columns: 200px 1fr; /* Adjust sidebar width */
+    }
+
+    .sidebar {
+        padding: 15px;
+    }
+
+    .main-content {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        grid-template-columns: 1fr; /* Stack sidebar and main content */
+    }
+
+    .sidebar {
+        width: 100%;
+        box-shadow: none;
+    }
+
+    .main-content {
+        padding: 15px;
+    }
+
+    .modal-content {
+        width: 90%; /* Adjust modal width for smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .dashboard-cards {
+        grid-template-columns: 1fr; /* Single column for cards */
+    }
+
+    .card {
+        padding: 15px;
+    }
+
+    button {
+        padding: 8px 15px;
+    }
+
+    input, select, textarea {
+        padding: 6px;
+    }
+}
+.report-header {
+    display: flex;
+    justify-content: space-between; /* Space between the title and the button */
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.print-report-btn {
+    background: var(--primary); /* Uses themed primary */
+    color: var(--button-text-color);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.print-report-btn:hover {
+    background: var(--button-hover-bg);
+}
+/* Animation for the title */
+.animated-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #357ab7;
+    text-align: center;
+    animation: fadeInSlideDown 2s ease-in-out;
+}
+
+/* Keyframes for the animation */
+@keyframes fadeInSlideDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Lab submenu styles */
+.lab-submenu .nav-link {
+    font-size: 15px;
+    padding-left: 35px; /* Keep specific padding */
+    background: var(--nav-link-hover-bg); /* Use a slightly different bg for submenus */
+}
+.lab-submenu .nav-link:hover {
+    background: var(--primary); /* Or a darker shade of nav-link-hover-bg */
+    color: var(--button-text-color);
+}
+
+.lab-submenu .nav-link {
+    font-size: 15px;
+    padding-left: 35px;
+    background: var(--nav-link-hover-bg); /* Consistent with above */
+}
+.lab-submenu .nav-link:hover {
+    background: var(--primary); /* Consistent with above */
+    color: var(--button-text-color);
+}
+
+.deeyn-search-row {
+    display: flex;
+    justify-content: flex-end; /* Move content to the right */
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+#searchDeeynTire {
+    width: 300px;
+    max-width: 100%;
+    margin-right: 0;
+}
+.deeyn-search-input {
+    transition: width 0.3s, opacity 0.3s;
+    width: 300px;
+    opacity: 1;
+}
+.deeyn-search-input[style*="display: none"] {
+    width: 0;
+    opacity: 0;
+    padding: 0;
+    border: none;
+}
+
+.deeyn-search-row {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.search-input-wrapper {
+    position: relative;
+    width: 300px;
+    display: flex;
+    align-items: center;
+}
+
+.deeyn-search-input {
+    width: 100%;
+    padding: 10px 38px 10px 12px; /* right padding for icon */
+    border: 1px solid var(--primary); /* Use themed primary for border */
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+    background-color: var(--input-bg); /* Theme aware */
+    color: var(--input-text); /* Theme aware */
+}
+
+.deeyn-search-input:focus {
+    border-color: var(--button-hover-bg); /* Darker primary on focus */
+    outline: none;
+}
+.search-icon {
+    position: absolute;
+    right: 12px;
+    color: #aaa;
+    font-size: 18px;
+    cursor: pointer;
+    z-index: 2;
+    background: transparent;
+    border: none;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+/* ...existing code... */
+
+
+.card:hover {
+    transform: translateY(-2px) scale(1.005); /* Even more subtle hover: very gentle lift and minimal scale for a "pull" effect */
+    box-shadow: var(--card-hover-shadow);
+    background: var(--card-hover-bg);
+}
+
+.card .card-icon { /* New class for the icon container */
+    font-size: 2.5rem; /* Larger icon */
+    color: var(--primary);
+    margin-bottom: 15px; /* Space between icon and title */
+    line-height: 1; /* Ensure icon is not pushed down by line height */
+}
+
+.card h3 {
+    font-size: 1.1rem; /* Slightly smaller to give more prominence to value */
+    color: var(--text-color); /* Use themed text color for title */
+    font-weight: 500; /* Medium weight */
+    margin-bottom: 8px;
+    line-height: 1.3;
+}
+
+.card p {
+    font-size: 1.8rem; /* Larger font for the value */
+    font-weight: 700; /* Bold */
+    color: var(--primary); /* Primary color for the value to make it pop */
+    margin: 0;
+    line-height: 1;
+}
+
+/* Override for specific card styling if needed, or remove if general .card i is not used elsewhere */
+.card i { /* This style might be too general if icons are used differently in other cards */
+    /* font-size: 2.2rem; */ /* Commented out or adjust if it conflicts */
+    /* color: var(--primary); */
+    /* margin-bottom: 2px; */
+    /* display: block; */
+}
+
+/* Responsive tweaks */
+@media (max-width: 600px) {
+    .dashboard-cards {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    .card {
+        padding: 20px 10px;
+    }
+}
+
+/* Style for AI Assistant card with only an image */
+.card-ai-image-only {
+    padding: 0 !important; /* Remove padding to let image fill the card */
+    overflow: hidden; /* Ensure image corners are rounded if card has border-radius */
+    height: 150px; /* Set a fixed height for the image card */
+    margin-bottom: 20px; /* Add space below this card, before the grid of other cards */
+}
+
+.card-ai-image-only img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Cover the card area, might crop image */
+    display: block; /* Remove extra space below image */
+}
+/* ...existing code... */
+
+/* Responsive Design Improvements */
+
+/* Make sidebar collapsible on small screens */
+@media (max-width: 900px) {
+    .container {
+        grid-template-columns: 1fr;
+    }
+    .sidebar {
+        width: 100%;
+        min-width: 0;
+        box-shadow: none;
+        padding: 10px;
+    }
+    .main-content {
+        padding: 10px;
+    }
+}
+
+/* Dashboard cards: stack vertically on small screens */
+@media (max-width: 700px) {
+    .dashboard-cards {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    .card {
+        padding: 18px 8px;
+    }
+}
+
+/* Section and modal adjustments for mobile */
+@media (max-width: 600px) {
+    .section {
+        padding: 10px 4px;
+        border-radius: 6px;
+    }
+    .modal-content {
+        width: 98% !important;
+        margin: 30% auto !important;
+        padding: 10px;
+    }
+    .customer-header {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+    .report-header {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+    table, th, td {
+        font-size: 13px;
+    }
+    .search-input-wrapper {
+        width: 100%;
+    }
+    .deeyn-search-input {
+        font-size: 14px;
+        padding: 8px 32px 8px 8px;
+    }
+}
+
+/* Make tables scrollable horizontally on very small screens */
+@media (max-width: 480px) {
+    table {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+    th, td {
+        min-width: 90px;
+    }
+    .sidebar {
+        padding: 5px;
+    }
+    .main-content {
+        padding: 5px;
+    }
+    .card {
+        padding: 10px 4px;
+    }
+    button, .print-report-btn {
+        padding: 8px 10px;
+        font-size: 14px;
+    }
+    .animated-title {
+        font-size: 18px;
+    }
+}
+
+.sidebar-toggle-btn {
+    display: none;
+    position: fixed;
+    top: 18px;
+    left: 18px;
+    z-index: 1002;
+    background: var(--primary); /* Themed */
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    font-size: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+}
+@media (max-width: 900px) {
+    .sidebar {
+        position: fixed;
+        left: -220px; /* La hagaajiyay si uu ula mid noqdo ballaca sidebar-ka */
+        top: 0;
+        height: 100%;
+        width: 220px;
+        z-index: 1001;
+        transition: left 0.3s, background-color 0.3s; /* Added background transition */
+        box-shadow: 2px 0 8px rgba(0,0,0,0.08);
+    }
+    .sidebar.open {
+        left: 0;
+    }
+    .main-content {
+        padding: 15px;
+    }
+    .sidebar-toggle-btn {
+        display: flex;
+    }
+     .sidebar-overlay {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: var(--bg-color-transparent, rgba(0,0,0,0.25)); /* Themed overlay */
+    }
+    .sidebar-overlay.active {
+        display: block;
+    }
+}
+
+/* --- Responsive DeeynTire Section --- */
+@media (max-width: 700px) {
+    #deeynTireContent table {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+        white-space: nowrap;
+        font-size: 14px;
+    }
+    #deeynTireContent th, #deeynTireContent td {
+        min-width: 110px;
+        padding: 8px 6px;
+    }
+    #deeynTireContent input[type="number"] {
+        width: 80px;
+        font-size: 14px;
+    }
+    #deeynTireContent button {
+        padding: 7px 12px;
+        font-size: 14px;
+    }
+    .deeyn-search-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 6px;
+    }
+    .search-input-wrapper {
+        width: 100%;
+    }
+    .deeyn-search-input {
+        font-size: 14px;
+        padding: 8px 32px 8px 8px;
+    }
+}
+@media (max-width: 480px) {
+    #deeynTireContent th, #deeynTireContent td {
+        min-width: 90px;
+        font-size: 12px;
+        padding: 6px 3px;
+    }
+    #deeynTireContent input[type="number"] {
+        width: 60px;
+        font-size: 12px;
+    }
+    #deeynTireContent button {
+        padding: 6px 8px;
+        font-size: 12px;
+    }
+}
+
+
+/* ...existing code... */
+        /* Theme switcher button style */
+        #themeToggleBtn {
+            min-width: 200px; /* Ensure button text fits */
+            
+        }
+        /* Styles for enhanced Register Lab form */
+        .form-row {
+            display: flex;
+            flex-wrap: wrap; /* Allow wrapping on smaller screens */
+            gap: 20px; /* Space between items in a row */
+            margin-bottom: 15px;
+        }
+
+        .form-row .form-group {
+            flex: 1 1 200px; /* Grow, shrink, with a base of 200px */
+            min-width: 200px; /* Prevent becoming too small */
+            margin-bottom: 0; /* Remove default bottom margin as form-row handles it */
+        }
+
+        .lab-tests-container {
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 15px;
+            background-color: var(--input-bg); /* Match input background */
+            margin-bottom: 20px; /* Consistent with form-group */
+        }
+
+        .lab-tests-container legend {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--text-color);
+            font-size: 1.1em;
+        }
+
+        .lab-tests-checkboxes {
+            max-height: 220px; /* Slightly increased height */
+            overflow-y: auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Responsive columns */
+            gap: 8px; /* Space between checkboxes */
+            padding: 5px; /* Inner padding */
+        }
+
+        .lab-tests-checkboxes label {
+            display: flex; /* Align checkbox and text nicely */
+            align-items: center;
+            padding: 6px 8px;
+            border-radius: 3px;
+            transition: background-color 0.2s;
+            cursor: pointer;
+        }
+        .lab-tests-checkboxes label:hover {
+            background-color: var(--nav-link-hover-bg); /* Subtle hover effect */
+        }
+
+        .lab-tests-checkboxes input[type="checkbox"] {
+            margin-right: 10px;
+            width: auto; /* Override general input width for checkboxes */
+            height: auto; /* Override general input height for checkboxes */
+            margin-top: 0; /* Reset margin-top if any global style affects it */
+        }
+
+        /* Adjustments for the Register Lab section title and form container */
+        #registerLab h2 {
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+        }
+
+        #registerLab form {
+            padding: 20px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background-color: var(--surface-color); 
+            box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+        }
+
+        /* Styles for input fields with icons */
+        .input-with-icon .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-with-icon .input-icon {
+            position: absolute;
+            left: 12px; /* Adjusted for a bit more space */
+            color: var(--placeholder-color); 
+            font-size: 0.95em; /* Slightly larger icon */
+            z-index: 2; /* Ensure icon is above input background */
+        }
+
+        .input-with-icon input {
+            padding-left: 40px; /* Make space for the icon */
+        }
+
+        /* Enhanced Gender Selection Styling */
+        .gender-selection-group {
+            display: flex;
+            gap: 15px; /* Space between Male/Female options */
+            margin-top: 8px; /* Space below the "Gender" label */
+        }
+
+        .gender-option {
+            display: flex;
+            align-items: center;
+            padding: 8px 15px; /* Increased padding for a better touch target */
+            border: 1px solid var(--border-color);
+            border-radius: 5px; /* Consistent with other inputs/buttons */
+            cursor: pointer;
+            transition: background-color 0.2s, border-color 0.2s;
+            flex: 1; /* Allow options to grow and fill space if needed */
+        }
+        .gender-option:hover {
+            background-color: var(--nav-link-hover-bg);
+            border-color: var(--primary);
+        }
+        .gender-option input[type="radio"] {
+            width: auto; 
+            margin-right: 10px; /* More space between radio and text */
+            margin-top: 0; 
+            accent-color: var(--primary); /* Modern way to color radio button's checked state */
+        }
+
+        /* Enhanced Search Input Styling */
+        .enhanced-search-input-container {
+            position: relative;
+            width: 100%; /* Occupy full width like a standard input in its context */
+            margin-top: 5px; /* Default margin, similar to other input fields after a label */
+        }
+
+        .enhanced-search-input-container input[type="text"] {
+            padding-left: 35px !important; /* Space for the icon */
+            height: 40px;                  /* Consistent height */
+            font-size: 1em;                /* Consistent font size */
+            margin-top: 0 !important;      /* Reset margin from global input style, container handles spacing */
+            width: 100%;                   /* Make input fill the container */
+        }
+
+        .enhanced-search-input-container .search-icon-left {
+            position: absolute;
+            left: 10px;
+            top: 50%; /* Vertically center relative to the input's height */
+            transform: translateY(-50%);
+            color: var(--placeholder-color);
+            font-size: 1.1em;
+            z-index: 2; /* Ensure icon is above input background */
+        }
+
+        #resultLab h2 {
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+            color: var(--primary); /* Make title color primary */
+        }
+
+        #labResultsTable tbody tr:hover {
+            background-color: var(--nav-link-hover-bg); /* Subtle hover effect for rows */
+        }
+
+        #labResultsTable .action-button { /* Class for styling action buttons in this table */
+            padding: 5px 12px; /* La beddelay si uu ula mid noqdo badhamada kale ee delete */
+            border-radius: 4px;
+            transition: all 0.2s ease-in-out;
+        }
+        /* No specific :hover for action-button here, relies on general button:hover */
+
+        /* Toast Notification Styles */
+        #toastContainer {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 2000; /* High z-index to be on top of other elements */
+            display: flex;
+            flex-direction: column;
+            gap: 10px; /* Spacing between multiple toasts */
+        }
+
+        .toast {
+            padding: 15px 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+            opacity: 0;
+            transform: translateX(100%); /* Start off-screen to the right */
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            min-width: 280px; /* Minimum width for the toast */
+            max-width: 380px; /* Maximum width */
+            font-size: 0.95em;
+            word-wrap: break-word; /* Ensure long messages wrap */
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(0); /* Slide in from the right */
+        }
+
+        .toast-success { /* Uses existing theme variables for success alerts */
+            background-color: var(--alert-success-bg);
+            color: var(--alert-success-text);
+            border: 1px solid var(--alert-success-border);
+        }
+
+        html {
+    font-size: 16px; /* Asaas */
+}
+@media (max-width: 768px) {
+    html {
+        font-size: 14px; /* Hoos u dhig shaashadaha yaryar */
+    }
+}
+@media (max-width: 480px) {
+    html {
+        font-size: 12px; /* Sii yaree */
+    }
+}
+
+    </style>
+</head>
+
+<body>
+
+    
+    <!-- Sidebar toggle button and overlay for mobile -->
+    <button class="sidebar-toggle-btn" id="sidebarToggleBtn" aria-label="Open sidebar">
+        <i class="fas fa-bars"></i>
+    </button>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <div class="container">
+        <div class="sidebar" id="sidebar">
+<h2 class="animated-title" style="display:flex;align-items:center;justify-content:center;gap:8px;">
+    <img src="waxqabad.jpg" alt="Waxqabad Logo" style="height:38px;width:38px;border-radius:50%;object-fit:cover;">
+    Waxqabad
+</h2>    <nav>
+                <a href="#" class="nav-link" onclick="showSection('dashboard')">
+                    <i class="fas fa-tachometer-alt"></i> Dashboard
+                </a>
+                <a href="#" class="nav-link" onclick="showSection('products')">
+                    <i class="fas fa-pills"></i> Products
+                </a>
+                <a href="#" class="nav-link" onclick="toggleLabMenu(event)">
+                    <i class="fas fa-flask"></i> Lab
+                    <i class="fas fa-chevron-down" id="lab-arrow" style="margin-left:auto; transition: transform 0.3s;"></i>
+                </a>
+                <div id="lab-submenu" class="lab-submenu" style="display:none; margin-left:30px;">
+                    <a href="#" class="nav-link" onclick="showSection('registerLab')">
+                        <i class="fas fa-user-plus"></i> Register Lab
+                    </a>
+                    <a href="#" class="nav-link" onclick="showSection('resultLab')">
+                        <i class="fas fa-vials"></i> Result Lab
+                    </a>
+                </div>
+                <a href="#" class="nav-link" onclick="toggleCustomerMenu(event)">
+                    <i class="fas fa-users"></i> Customers
+                    <i class="fas fa-chevron-down" id="customer-arrow" style="margin-left:auto; transition: transform 0.3s;"></i>
+                </a>
+                <div id="customer-submenu" class="lab-submenu" style="display:none; margin-left:30px;">
+                    <a href="#" class="nav-link" onclick="showSection('customers')">
+                        <i class="fas fa-user"></i> Manage Customers
+                    </a>
+                    <a href="#" class="nav-link" onclick="showSection('orders')">
+                        <i class="fas fa-shopping-cart"></i> Customer Orders
+                    </a>
+                    <a href="#" class="nav-link" onclick="showSection('customerOrdersReport')">
+                        <i class="fas fa-file-alt"></i> Customer Orders Report
+                    </a>
+                </div>
+                <a href="#" class="nav-link" onclick="showSection('sales')">
+                    <i class="fas fa-chart-line"></i> Sales
+                </a>
+                <a href="#" class="nav-link" onclick="showSection('deeyntireSection')">
+                    <i class="fas fa-layer-group"></i> DeeynTire
+                </a>
+                <a href="#" class="nav-link" onclick="showSection('inventory')">
+                    <i class="fas fa-boxes"></i> Inventory
+                </a>
+                <a href="#" class="nav-link" onclick="showSection('aiAssistant')">
+                    <i class="fas fa-robot"></i> AI Assistant
+                </a>
+                <a href="#" class="nav-link" onclick="showSection('settings')">
+                    <i class="fas fa-cog"></i> Settings
+                </a>
+                
+            </nav>
+</div>
+
+
+      
+           <section id="dashboard" class="section">
+    <div class="dashboard-section-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h2><i class="fas fa-tachometer-alt"></i> Dashboard</h2>
+        <!-- Theme Toggle Button Moved Here -->
+        <div class="form-group" style="margin-bottom: 0;">
+            <label for="themeToggleBtn" style="margin-right: 10px; color: var(--text-color);">Theme:</label>
+            <button id="themeToggleBtn" onclick="toggleTheme()">
+                <i class="fas fa-moon"></i> Switch to Dark Mode
+            </button>
+        </div>
+    </div>
+    <div class="main-content">
+
+    <div class="dashboard-cards">        
+        <!-- Total Products -->
+        <div class="card">
+            <div class="card-icon"><i class="fas fa-pills"></i></div>
+            <h3>Total Products</h3>
+            <p id="totalProducts">0</p>
+        </div>
+        <!-- Total Sales -->
+        <div class="card">
+            <div class="card-icon"><i class="fas fa-dollar-sign"></i></div>
+            <h3>Total Sales</h3>
+            <p id="totalSales">$0</p>
+        </div>
+        <!-- Low Stock -->
+        <div class="card">
+            <div class="card-icon"><i class="fas fa-exclamation-triangle"></i></div>
+            <h3>Low Stock</h3>
+            <p id="lowStock">0</p>
+        </div>
+        <!-- Total Customers -->
+        <div class="card">
+            <div class="card-icon"><i class="fas fa-users"></i></div>
+            <h3>Total Customers</h3>
+            <p id="totalCustomers">0</p>
+        </div>
+        <!-- Total Inventory -->
+        <div class="card">
+            <div class="card-icon"><i class="fas fa-boxes"></i></div>
+            <h3>Total Inventory</h3>
+            <p id="totalInventory">0</p>
+        </div>
+        <!-- Total Orders -->
+        <div class="card">
+            <div class="card-icon"><i class="fas fa-shopping-cart"></i></div>
+            <h3>Customer Orders</h3>
+            <p id="totalOrders">0</p>
+        </div>
+        <!-- Total Product Value -->
+        <div class="card">
+            <div class="card-icon"><i class="fas fa-coins"></i></div>
+            <h3>Total Product Value</h3>
+            <p id="totalProductValue">$0</p>
+        </div>
+
+        <div class="card">
+            <div class="card-icon"><i class="fas fa-flask"></i></div>
+            <h3>Total Labs</h3>
+            <p id="totalLabs">0</p>
+        </div>
+        
+        <div class="card">
+            <div class="card-icon"><i class="fas fa-layer-group"></i></div>
+            <h3>DeeynTire Total</h3>
+            <p id="totalDeeynTire">$0</p>
+        </div>         
+    </div>
+</section>
+            <!-- Products Section -->
+            <section id="products" class="section" style="display: none;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h2><i class="fas fa-pills"></i> Manage Products</h2>
+                    <button onclick="openAddProductModal()"><i class="fas fa-plus"></i> Add Product</button>
+                </div>
+                <div id="productAlert" class="alert" style="display: none;"></div>
+
+                <h3 class="mt-2"><i class="fas fa-list"></i> Product List</h3>
+                <table id="productTable">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="productList"></tbody>
+                </table>
+            </section>
+           <!-- Register Lab Section -->
+<section id="registerLab" class="section" style="display: none;">
+    <div id="labAlert" class="alert" style="display: none;"></div>
+    <h2><i class="fas fa-flask"></i> Register Lab Patient</h2>
+    <form id="labRegisterForm">
+        <div class="form-row">
+            <div class="form-group input-with-icon">
+                <label for="labName">Patient Name</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-user input-icon"></i>
+                    <input type="text" id="labName" name="labName" placeholder="Enter full name" required>
+                </div>
+            </div>
+            <div class="form-group input-with-icon">
+                <label for="labPhone">Phone Number</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-phone input-icon"></i>
+                    <input type="tel" id="labPhone" name="labPhone" placeholder="e.g., 61XXXXXXX" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="labGenderMale">Gender</label>
+                <div class="gender-selection-group">
+                    <label class="gender-option" for="labGenderMale">
+                        <input type="radio" id="labGenderMale" name="labGender" value="Male" required> Male
+                    </label>
+                    <label class="gender-option" for="labGenderFemale">
+                        <input type="radio" id="labGenderFemale" name="labGender" value="Female" required> Female
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group input-with-icon">
+                <label for="labAddress">Address (Optional)</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-map-marker-alt input-icon"></i>
+                    <input type="text" id="labAddress" name="labAddress" placeholder="Patient's address">
+                </div>
+            </div>
+            <div class="form-group input-with-icon">
+                <label for="labBlood">Blood Group (Optional)</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-tint input-icon"></i>
+                    <input type="text" id="labBlood" name="labBlood" placeholder="e.g., O+">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group input-with-icon">
+            <label for="labComment">Additional Comments (Optional)</label>
+            <div class="input-wrapper">
+                <textarea id="labComment" name="labComment" rows="3" placeholder="Any relevant notes..." style="padding-left: 10px;"></textarea>
+            </div>
+        </div>
+
+        <fieldset class="lab-tests-container">
+            <legend>Select Lab Tests</legend>
+            <div id="labTestsCheckboxes" class="lab-tests-checkboxes">
+                <label><input type="checkbox" name="labTests" value="Malaria test"> Malaria test</label>
+                <label><input type="checkbox" name="labTests" value="Typhoid test"> Typhoid test</label>
+                <label><input type="checkbox" name="labTests" value="HB test"> HB test</label>
+                <label><input type="checkbox" name="labTests" value="Urine test"> Urine test</label>
+                <label><input type="checkbox" name="labTests" value="Hcv test"> Hcv test</label>
+                <label><input type="checkbox" name="labTests" value="Hbv test"> Hbv test</label>
+                <label><input type="checkbox" name="labTests" value="H pylori test"> H pylori test</label>
+                <label><input type="checkbox" name="labTests" value="Syphilis test"> Syphilis test</label>
+                <label><input type="checkbox" name="labTests" value="ESR test"> ESR test</label>
+                <label><input type="checkbox" name="labTests" value="RA test"> RA test</label>
+                <label><input type="checkbox" name="labTests" value="HCG test"> HCG test</label>
+                <label><input type="checkbox" name="labTests" value="Stool examination"> Stool examination</label>
+                <label><input type="checkbox" name="labTests" value="Blood group"> Blood group</label>
+                <label><input type="checkbox" name="labTests" value="P24 test"> P24 test</label>
+                <label><input type="checkbox" name="labTests" value="CBC"> CBC</label>
+                <label><input type="checkbox" name="labTests" value="Glucose test"> Glucose test</label>
+                <label><input type="checkbox" name="labTests" value="CRP test"> CRP test</label>
+                <label><input type="checkbox" name="labTests" value="Liver function tests"> Liver function tests</label>
+                <label><input type="checkbox" name="labTests" value="Renal function tests"> Renal function tests</label>
+                <label><input type="checkbox" name="labTests" value="RF test"> RF test</label>
+                <label><input type="checkbox" name="labTests" value="Cholesterol test"> Cholesterol test</label>
+                <label><input type="checkbox" name="labTests" value="Triglycerides test"> Triglycerides test</label>
+            </div>
+        </fieldset>
+
+        <div class="form-group">
+            <label for="labPayment">Payment Status</label>
+            <select id="labPayment" name="labPayment" required>
+                <option value="no_money">No Money (Deeyn)</option>
+                <option value="money">Paid</option>
+            </select>
+        </div>
+        <button type="submit" style="width: 100%; padding: 12px; font-size: 1.1em; margin-top:10px;"><i class="fas fa-plus-circle"></i> Register Lab Request</button>
+    </form>
+    <h3 class="mt-2" style="border-top: 1px solid var(--border-color); padding-top: 20px; margin-top: 30px;"><i class="fas fa-clipboard-list"></i> Recent Lab Requests</h3>
+    <table id="labRequestsTable">
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Gender</th>
+                <th>Tests</th>
+                <th>Payment</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="labRequestsList"></tbody>
+    </table>
+</section>
+
+            <!-- Result Lab Section -->
+<section id="resultLab" class="section" style="display: none;">
+    <h2><i class="fas fa-vials"></i> Lab Results</h2>
+    <div class="form-group"> <!-- Standard form-group for consistent margin-bottom -->
+        <div class="enhanced-search-input-container" style="margin-top: 0;"> <!-- No label above, so no top margin for container -->
+            <i class="fas fa-search search-icon-left"></i>
+            <input type="text" id="searchLabResults" 
+                   placeholder="Search by name, phone, or test..." 
+                   oninput="renderLabResultsTable()" aria-label="Search Lab Results">
+        </div>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Gender</th>
+                <th>Tests</th>
+                <th>Result</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="labResultsList"></tbody> <!-- Table body for lab results -->
+    </table>
+</section>
+
+<div id="editLabResultModal" class="modal">
+    <div class="modal-content" style="max-width:400px;">
+        <span class="close" onclick="closeEditLabResultModal()">&times;</span>
+        <h3>Edit Lab Result</h3>
+        <form id="editLabResultForm">
+            <div class="form-group">
+                <label for="editLabResult">Result</label>
+                <input type="text" id="editLabResult" required>
+            </div>
+            <input type="hidden" id="editLabIdx">
+            <button type="submit">Save</button>
+        </form>
+    </div>
+</div>
+            
+<!-- Edit Lab Request Modal -->
+<div id="editLabRequestModal" class="modal">
+    <div class="modal-content" style="max-width:500px;">
+        <span class="close" onclick="closeEditLabRequestModal()">&times;</span>
+        <h3>Edit Lab Request</h3>
+        <form id="editLabRequestForm">
+            <input type="hidden" id="editLabRequestIdx">
+            <div class="form-group">
+                <label for="editLabName">Name</label>
+                <input type="text" id="editLabName" required>
+            </div>
+            <div class="form-group">
+                <label for="editLabPhone">Phone</label>
+                <input type="text" id="editLabPhone" required>
+            </div>
+            <div class="form-group">
+                <label for="editLabAddress">Address</label>
+                <input type="text" id="editLabAddress">
+            </div>
+            <div class="form-group">
+                <label for="editLabBlood">Blood</label>
+                <input type="text" id="editLabBlood">
+            </div>
+            
+            <div class="form-group">
+                <label for="editLabGenderMale">Gender</label>
+                <div class="gender-selection-group">
+                    <label class="gender-option" for="editLabGenderMale">
+                        <input type="radio" id="editLabGenderMale" name="editLabGender" value="Male" required> Male
+                    </label>
+                    <label class="gender-option" for="editLabGenderFemale">
+                        <input type="radio" id="editLabGenderFemale" name="editLabGender" value="Female" required> Female
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="editLabComment">Comment</label>
+                <textarea id="editLabComment" rows="2"></textarea>
+            </div>
+            <div class="form-group" id="editLabTestsCheckboxesContainer" style="max-height:150px;overflow-y:auto;border:1px solid #eee;padding:8px;">
+                <!-- Test checkboxes will be populated here by JS -->
+            </div>
+            <button type="submit">Save Changes</button>
+        </form>
+    </div>
+</div>
+            <!-- Customers Section -->
+            <section id="customers" class="section" style="display: none;">
+                <div class="customer-header">
+                    <h2><i class="fas fa-users"></i> Manage Customers</h2>
+                    <button onclick="openRegisterCustomerModal()"><i class="fas fa-user-plus"></i> Add Customer</button>
+                </div>
+                <div id="customerAlert" class="alert" style="display: none;"></div>
+
+                <!-- Search Bar -->
+                <div class="form-group">
+                    <label for="searchCustomer">Search Customer:</label>
+                    <div class="enhanced-search-input-container">
+                        <i class="fas fa-search search-icon-left"></i>
+                        <input type="text" id="searchCustomer" placeholder="Enter customer name or phone" oninput="searchCustomer()">
+                    </div>
+                </div>
+                <h3 class="mt-2"><i class="fas fa-list"></i> Customer List</h3>
+                <table id="customerTable">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Phone</th>
+                            <th>Address</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="customerList"></tbody>
+                </table>
+            </section>
+
+            <!-- Orders Section -->
+            <section id="orders" class="section" style="display: none;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h2><i class="fas fa-shopping-cart"></i> Customer Orders</h2>
+                    <button onclick="openCreateOrderModal()"><i class="fas fa-cart-plus"></i> Create New Order</button>
+                </div>
+                <div id="orderAlert" class="alert" style="display: none;"></div>
+
+                <h3 class="mt-2"><i class="fas fa-list"></i> Order List</h3>
+                <table id="orderTable">
+                    <thead>
+                        <tr>
+                            <th>Customer</th>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th>Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="orderList"></tbody>
+                </table>
+            </section>
+
+            
+            <!-- Sales Section -->
+            <section id="sales" class="section" style="display: none;">
+                <h2><i class="fas fa-chart-line"></i> Record Sale</h2>
+                <div id="saleAlert" class="alert" style="display: none;"></div>
+                <!-- Button to open the Record Sale modal -->
+                <button onclick="openRecordSaleModal()" style="margin-bottom: 20px;"><i class="fas fa-plus-circle"></i> Record New Sale</button>
+
+                <h3 class="mt-2"><i class="fas fa-history"></i> Sales History</h3>
+                <table id="salesTable">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="salesList"></tbody>
+                </table>
+            </section>
+            <!-- Place this after the Inventory Section, before Customer Orders Report Section -->
+<section id="deeyntireSection" class="section" style="display: none;">
+    <h2><i class="fas fa-layer-group"></i> DeeynTire Tools</h2>
+   <div class="deeyn-search-row">
+    <label for="searchDeeynTire" style="display:none;">Search Customer:</label>
+    <div class="search-input-wrapper">
+        <input type="text" id="searchDeeynTire" class="deeyn-search-input" placeholder="Enter name or phone" oninput="filterDeeynTire()" style="display:none;">
+        <span class="search-icon" id="toggleDeeynSearch" style="cursor:pointer;"><i class="fas fa-search"></i></span>
+    </div>
+</div>    <div style="display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 25px;">
+        <button onclick="showDeenReader()" style="background:#f57c1a; color:white; font-weight:bold; font-size:20px; padding:15px 30px; border:none; border-radius:5px;">Customer Deen</button>
+        <button onclick="showCustomerCheck()" style="background:#4a90e2; color:white; font-weight:bold; font-size:20px; padding:15px 30px; border:none; border-radius:5px;">Customer Check</button>
+        <button onclick="showCustomerMessenger()" style="background:#4caf50; color:white; font-weight:bold; font-size:20px; padding:15px 30px; border:none; border-radius:5px;">Customer Messenger</button>
+        <button onclick="showDeeynAgingReport()" style="background:#20c997; color:white; font-weight:bold; font-size:20px; padding:15px 30px; border:none; border-radius:5px;">Deeyn Aging Report</button>
+    </div>
+    <div id="deeynTireContent"></div>
+</section>
+
+<!-- Messenger Modal -->
+<div id="customerMessengerModal" class="modal">
+    <div class="modal-content" style="max-width:400px;">
+        <span class="close" onclick="closeCustomerMessengerModal()">&times;</span>
+        <h3>Send Message to Customer</h3>
+        <div id="messengerCustomerInfo"></div>
+        <form id="customerMessengerForm">
+            <div class="form-group">
+                <label for="messengerMessage">Message</label>
+                <textarea id="messengerMessage" rows="3" required>Waqtiga lacaga bixinta waa la jogaa</textarea>
+            </div>
+            <button type="submit">Send Message</button>
+        </form>
+    </div>
+</div>
+            
+            <!-- Inventory Section -->
+            <section id="inventory" class="section" style="display: none;">
+                <h2><i class="fas fa-boxes"></i> Inventory</h2>
+                <!-- Search Bar for Inventory -->
+                <div class="form-group">
+                    <label for="searchInventory">Search Inventory:</label>
+                    <div class="enhanced-search-input-container">
+                        <i class="fas fa-search search-icon-left"></i>
+                        <input type="text" id="searchInventory" placeholder="Search by product name or category..." oninput="renderInventoryTable()">
+                    </div>
+                </div>
+                <table id="inventoryTable">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th>Category</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="inventoryList"></tbody>
+                </table>
+            </section>
+
+          <!-- Customer Orders Report Section -->
+<section id="customerOrdersReport" class="section" style="display: none;">
+    <div class="report-header">
+        <h2><i class="fas fa-file-alt"></i> Customer Orders Report</h2>
+        <button onclick="printCustomerOrdersReport()" class="print-report-btn">
+            <i class="fas fa-print"></i> Print Customer Orders Report
+        </button>
+    </div>
+    <div class="form-group">
+        <label for="searchCustomerOrders">Search Customer:</label>
+        <div class="enhanced-search-input-container">
+            <i class="fas fa-search search-icon-left"></i>
+            <input type="text" id="searchCustomerOrders" placeholder="Enter customer name" oninput="searchCustomerOrders()">
+        </div>
+    </div>
+    <div id="customerOrdersReportContent">
+
+        <h3>Customer Orders List</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Customer Name</th>
+                    <th>Order Details</th>
+                    <th>Total Orders</th>
+                </tr>
+            </thead>
+            <tbody id="customerOrdersReportTable">
+                <!-- Customer orders report rows will be dynamically added here -->
+            </tbody>
+        </table>
+        <div id="customerOrdersReportSummary" class="mt-2">
+            <!-- Total Customers and Total Orders will be displayed here -->
+        </div>
+    </div>
+</section>
+
+            <!-- Settings Section -->
+            <section id="settings" class="section" style="display: none;">
+                <h2><i class="fas fa-cog"></i> Settings</h2>
+                <p>Customize your pharmacy settings here.</p>
+                <button onclick="clearData()"><i class="fas fa-trash"></i> Clear All Data</button>
+                <button onclick="downloadData()" style="margin-top: 10px;"><i class="fas fa-download"></i> Download All Application Data</button>
+            </section>
+            
+            <!-- AI Assistant Section -->
+            <section id="aiAssistant" class="section" style="display: none;">
+                <h2><i class="fas fa-robot"></i> AI Assistant</h2>
+                <p>Ask a question and I'll try my best to answer!</p>
+                <div class="form-group">
+                    <label for="aiQuestion">Your Question:</label>
+                    <textarea id="aiQuestion" rows="3" placeholder="Type your question here..."></textarea>
+                </div>
+                <button onclick="askAI()"><i class="fas fa-paper-plane"></i> Ask</button>
+                <div id="aiResponse" class="mt-2" style="padding:10px; border:1px solid var(--border-color); border-radius:4px; min-height:50px; background-color: var(--input-bg);">
+                    <!-- AI response will appear here -->
+                </div>
+            </section>
+
+
+
+            <!-- Medicine List Section -->
+            <section id="medicineListSection" class="section" style="display: none;">
+                <h2><i class="fas fa-pills"></i> Medicine List</h2>
+                <div class="medicine-list">
+                    <h3>Medicines:</h3>
+                    <div id="medicineList">
+                        <!-- Medicine items will be dynamically added here -->
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Medicine Details Modal -->
+    <div id="medicineDetailsModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeMedicineDetailsModal()">&times;</span>
+            <h2>Medicine Details</h2>
+            <div id="medicineDetailsContent">
+                <!-- Content will be dynamically added here -->
+            </div>
+            <button onclick="closeMedicineDetailsModal()">Close</button>
+        </div>
+    </div>
+
+    <!-- Add Product Modal -->
+    <div id="addProductModal" class="modal">
+        <div class="modal-content" style="max-width: 500px;">
+            <span class="close" onclick="closeAddProductModal()">&times;</span>
+            <h2>Add New Product</h2>
+            <form id="addProductFormModal">
+                <div class="form-group">
+                    <label for="modalProductName">Product Name</label>
+                    <input type="text" id="modalProductName" name="productName" required>
+                </div>
+                <div class="form-group">
+                    <label for="modalProductCategory">Category</label>
+                    <select id="modalProductCategory" name="productCategory" required>
+                        <option value="">Select Category</option>
+                        <option value="Medicine">Medicine</option>
+                        <option value="Supplements">Supplements</option>
+                        <option value="Equipment">Equipment</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="modalProductPrice">Price</label>
+                    <input type="number" id="modalProductPrice" name="productPrice" step="0.01" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label for="modalProductQuantity">Quantity</label>
+                    <input type="number" id="modalProductQuantity" name="productQuantity" min="0" required>
+                </div>
+                <button type="submit"><i class="fas fa-save"></i> Save Product</button>
+            </form>
+        </div>
+    </div>
+    <!-- Edit Product Modal -->
+    <div id="editProductModal" class="modal">
+        <div class="modal-content" style="max-width: 500px;">
+            <span class="close" onclick="closeEditProductModal()">&times;</span>
+            <h2>Edit Product</h2>
+            <form id="editProductFormModal">
+                <input type="hidden" id="editProductId">
+                <div class="form-group">
+                    <label for="editProductName">Product Name</label>
+                    <input type="text" id="editProductName" name="editProductName" required>
+                </div>
+                <div class="form-group">
+                    <label for="editProductCategory">Category</label>
+                    <select id="editProductCategory" name="editProductCategory" required>
+                        <option value="Medicine">Medicine</option>
+                        <option value="Supplements">Supplements</option>
+                        <option value="Equipment">Equipment</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="editProductPrice">Price</label>
+                    <input type="number" id="editProductPrice" name="editProductPrice" step="0.01" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label for="editProductQuantity">Quantity</label>
+                    <input type="number" id="editProductQuantity" name="editProductQuantity" min="0" required>
+                </div>
+                <button type="submit"><i class="fas fa-save"></i> Save Changes</button>
+            </form>
+        </div>
+    </div>
+    <!-- Register Customer Modal -->
+    <div id="registerCustomerModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeRegisterCustomerModal()">&times;</span>
+            <h2>Register Customer</h2>
+            <div id="registerCustomerContent">
+                <form id="customerFormModal">
+                    <div class="form-group">
+                        <label for="customerName">Customer Name</label>
+                        <input type="text" id="customerName" name="customerName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="customerPhone">Phone Number</label>
+                        <input type="tel" id="customerPhone" name="customerPhone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="customerAddress">Address</label>
+                        <textarea id="customerAddress" name="customerAddress" rows="3"></textarea>
+                    </div>
+                    <button type="submit">Add Customer</button>
+                </form>
+            </div>
+            <button onclick="closeRegisterCustomerModal()">Close</button>
+        </div>
+    </div>
+    <!-- Create Order Modal -->
+    <div id="createOrderModal" class="modal">
+        <div class="modal-content" style="max-width: 500px;">
+            <span class="close" onclick="closeCreateOrderModal()">&times;</span>
+            <h2>Create New Order</h2>
+            <form id="createOrderFormModal">
+                <div class="form-group">
+                    <label for="modalOrderCustomer">Customer</label>
+                    <select id="modalOrderCustomer" name="orderCustomer" required>
+                        <!-- Options will be populated by JS -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="modalOrderProduct">Product</label>
+                    <select id="modalOrderProduct" name="orderProduct" required>
+                        <!-- Options will be populated by JS -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="modalOrderQuantity">Quantity</label>
+                    <input type="number" id="modalOrderQuantity" name="orderQuantity" min="1" required>
+                </div>
+                <button type="submit"><i class="fas fa-cart-plus"></i> Create Order</button>
+            </form>
+        </div>
+    </div>
+    <!-- Edit Order Modal -->
+    <div id="editOrderModal" class="modal">
+        <div class="modal-content" style="max-width: 500px;">
+            <span class="close" onclick="closeEditOrderModal()">&times;</span>
+            <h2>Edit Order</h2>
+            <form id="editOrderFormModal">
+                <input type="hidden" id="editOrderId">
+                <div class="form-group">
+                    <label for="editOrderCustomer">Customer</label>
+                    <select id="editOrderCustomer" name="editOrderCustomer" required>
+                        <!-- Options will be populated by JS -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="editOrderProduct">Product</label>
+                    <select id="editOrderProduct" name="editOrderProduct" required>
+                        <!-- Options will be populated by JS -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="editOrderQuantity">Quantity</label>
+                    <input type="number" id="editOrderQuantity" name="editOrderQuantity" min="1" required>
+                </div>
+                <button type="submit"><i class="fas fa-save"></i> Save Changes</button>
+            </form>
+        </div>
+    </div>
+    <!-- Record Sale Modal -->
+    <div id="recordSaleModal" class="modal">
+        <div class="modal-content" style="max-width: 500px;">
+            <span class="close" onclick="closeRecordSaleModal()">&times;</span>
+            <h2>Record Sale</h2>
+            <form id="recordSaleFormModal">
+                <div class="form-group">
+                    <label for="modalSaleProduct">Product</label>
+                    <select id="modalSaleProduct" name="modalSaleProduct" required></select>
+                </div>
+                <div class="form-group">
+                    <label for="modalSaleQuantity">Quantity</label>
+                    <input type="number" id="modalSaleQuantity" name="modalSaleQuantity" min="1" required>
+                </div>
+                <button type="submit"><i class="fas fa-money-bill-wave"></i> Record Sale</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Confirm Delete Product Modal -->
+    <div id="confirmDeleteModal" class="modal">
+        <div class="modal-content" style="max-width: 400px; text-align: center;">
+            <span class="close" onclick="closeConfirmDeleteModal()">&times;</span>
+            <h4>Confirm Deletion</h4>
+            <p id="confirmDeleteMessage" style="margin: 20px 0;">Are you sure you want to delete this product?</p>
+            <div style="display: flex; justify-content: space-around; margin-top: 20px;">
+                <button id="confirmDeleteBtn" style="background-color: var(--danger);"><i class="fas fa-trash-alt"></i> Delete</button>
+                <button onclick="closeConfirmDeleteModal()" style="background-color: #6c757d;"><i class="fas fa-times"></i> Cancel</button>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+    <!-- Toast Notification Container -->
+    <div id="toastContainer"></div>
+
+    <script>
+
+    
+        // Data Storage
+        let products = JSON.parse(localStorage.getItem('products')) || [];
+        let sales = JSON.parse(localStorage.getItem('sales')) || [];
+        let customers = JSON.parse(localStorage.getItem('customers')) || [];
+        let orders = JSON.parse(localStorage.getItem('orders')) || [];
+
+        // Theme Management
+        const themeToggleBtn = document.getElementById('themeToggleBtn');
+        const currentTheme = localStorage.getItem('theme');
+
+        function setTheme(theme) {
+            if (theme === 'dark') {
+                document.body.classList.add('dark-mode');
+                if (themeToggleBtn) {
+                    themeToggleBtn.innerHTML = '<i class="fas fa-sun"></i> Switch to Light Mode';
+                }
+                localStorage.setItem('theme', 'dark');
+            } else {
+                document.body.classList.remove('dark-mode');
+                if (themeToggleBtn) {
+                    themeToggleBtn.innerHTML = '<i class="fas fa-moon"></i> Switch to Dark Mode';
+                }
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        function toggleTheme() {
+            if (document.body.classList.contains('dark-mode')) {
+                setTheme('light');
+            } else {
+                setTheme('dark');
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            if (currentTheme) {
+                setTheme(currentTheme);
+            } else {
+                setTheme('light'); // Default to light if no theme saved
+            }
+            // Initialize other parts of the application
+            updateDashboard();
+            populateProductDropdown();
+            populateCustomerDropdown();
+            renderProductTable();
+            renderCustomerTable();
+            renderOrderTable();
+            renderSalesTable();
+            renderInventoryTable();
+            renderMedicineList();
+            populateOrderFormDropdowns(); // Populate dropdowns for the new order modal
+
+            renderLabRequestsTable(); // Initialize lab requests table
+            renderLabResultsTable(); // Initialize lab results table
+        });
+
+        // Register Service Worker for PWA
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js').then(registration => {
+                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                }, err => {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+            });
+        }
+
+
+
+        // Alert Functions
+       function showAlert(message, type, elementId) {
+            if (type === 'success') {
+                const toastContainer = document.getElementById('toastContainer');
+                if (!toastContainer) {
+                    console.error('Toast container #toastContainer not found! Falling back to console for success message.');
+                    console.log(`GUUL: ${message}`);
+                    return;
+                }
+
+                const toast = document.createElement('div');
+                toast.className = 'toast toast-success'; // Base class and type-specific class
+
+                // Initial loading state
+                toast.innerHTML = `<i class="fas fa-spinner fa-spin" style="margin-right: 8px;"></i> <span class="toast-loading-text">Hawshii waa socotaa</span>`;
+
+                toastContainer.appendChild(toast);
+
+                const loadingTextElement = toast.querySelector('.toast-loading-text');
+                let dotCount = 0;
+                let ellipsisInterval;
+                if (loadingTextElement) {
+                    ellipsisInterval = setInterval(() => {
+                        dotCount = (dotCount + 1) % 4; // Cycles 0, 1, 2, 3 for dots
+                        loadingTextElement.textContent = "Hawshii waa socotaa" + ".".repeat(dotCount);
+                    }, 350); // Update dots every 350ms
+                }
+
+                // Trigger the show animation for the loading state
+                setTimeout(() => {
+                    if (toast) toast.classList.add('show');
+                }, 10);
+
+                const loadingDuration = 1200; // Increased duration for "Processing..." to make ellipsis more visible
+                const successMessageDuration = 3000; // Duration for the success message in ms
+
+                // After a short delay, update to success message
+                setTimeout(() => {
+                    if (ellipsisInterval) clearInterval(ellipsisInterval); // Stop the ellipsis animation
+                    if (toast) { // Check if toast still exists
+                        toast.innerHTML = `<i class="fas fa-check-circle" style="margin-right: 8px;"></i> ${message}`;
+
+                        // Set timeout for hiding the success message
+                        setTimeout(() => {
+                            if (toast) toast.classList.remove('show');
+                            if (toast) toast.addEventListener('transitionend', () => toast.remove(), { once: true });
+                        }, successMessageDuration);
+                    }
+                }, loadingDuration);
+
+            } else { // For 'danger', 'warning', etc., use the original banner alert
+                const alertElement = document.getElementById(elementId);
+                if (alertElement) {
+                    alertElement.textContent = message;
+                    alertElement.className = `alert alert-${type} show`;
+                    setTimeout(() => {
+                        alertElement.classList.remove('show');
+                    }, 3000);
+                } else {
+                    console.warn(`Alert element with ID '${elementId}' not found for '${type}' message: ${message}`);
+                }
+            }
+       }
+        // Form Handlers
+        // document.getElementById('productForm').addEventListener('submit', (e) => { // Commented out or remove old listener
+        //     e.preventDefault();
+        //     const productName = document.getElementById('productName').value;
+        //     const productCategory = document.getElementById('productCategory').value;
+        //     const productPrice = parseFloat(document.getElementById('productPrice').value);
+        //     const productQuantity = parseInt(document.getElementById('productQuantity').value);
+
+        //     const newProduct = {
+        //         id: Date.now(),
+        //         name: productName,
+        //         category: productCategory,
+        //         price: productPrice,
+        //         quantity: productQuantity
+        //     };
+
+        //     products.push(newProduct);
+        //     saveData();
+        //     renderProductTable();
+        //     renderInventoryTable();
+        //     populateProductDropdown();
+        //     updateDashboard();
+        //     renderMedicineList(); // Re-render medicine list
+        //     document.getElementById('productForm').reset();
+        //     showAlert('Product added successfully!', 'success', 'productAlert');
+        // });
+        document.getElementById('addProductFormModal').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const productNameInput = document.getElementById('modalProductName');
+            const productName = productNameInput.value.trim();
+            const productCategory = document.getElementById('modalProductCategory').value;
+            const productPrice = parseFloat(document.getElementById('modalProductPrice').value);
+            const productQuantity = parseInt(document.getElementById('modalProductQuantity').value);
+
+            if (!productName) {
+                showAlert('Product name cannot be empty.', 'danger', 'productAlert');
+                productNameInput.focus();
+                return;
+            }
+            if (!productCategory) {
+                showAlert('Please select a category.', 'danger', 'productAlert');
+                document.getElementById('modalProductCategory').focus();
+                return;
+            }
+            if (isNaN(productPrice) || productPrice < 0) {
+                showAlert('Please enter a valid price.', 'danger', 'productAlert');
+                document.getElementById('modalProductPrice').focus();
+                return;
+            }
+            if (isNaN(productQuantity) || productQuantity <= 0) {
+                showAlert('Quantity must be a number greater than 0.', 'danger', 'productAlert');
+                document.getElementById('modalProductQuantity').focus();
+                return;
+            }
+
+            const existingProductIndex = products.findIndex(p => p.name.toLowerCase() === productName.toLowerCase());
+
+            if (existingProductIndex > -1) {
+                // Product exists, update quantity
+                products[existingProductIndex].quantity += productQuantity;
+                showAlert(`Quantity for '${products[existingProductIndex].name}' updated successfully! New total: ${products[existingProductIndex].quantity}`, 'success', 'productAlert');
+            } else {
+                // Product is new, add it
+                const newProduct = {
+                    id: Date.now(),
+                    name: productName,
+                    category: productCategory,
+                    price: productPrice,
+                    quantity: productQuantity
+                };
+                products.push(newProduct);
+                showAlert(`Product '${productName}' added successfully!`, 'success', 'productAlert');
+            }
+
+            saveData();
+            renderProductTable();
+            renderInventoryTable();
+            populateProductDropdown();
+            updateDashboard();
+            renderMedicineList();
+            closeAddProductModal();
+            // Form is reset when modal is opened next time via openAddProductModal()
+        });
+        document.getElementById('customerFormModal').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const customerName = document.getElementById('customerName').value;
+            const customerPhone = document.getElementById('customerPhone').value;
+            const customerAddress = document.getElementById('customerAddress').value;
+
+            const newCustomer = {
+                id: Date.now(),
+                name: customerName,
+                phone: customerPhone,
+                address: customerAddress
+            };
+
+            customers.push(newCustomer);
+            saveData();
+            renderCustomerTable();
+            populateCustomerDropdown();
+            updateDashboard();
+            document.getElementById('customerFormModal').reset();
+            closeRegisterCustomerModal(); // Close the modal after submitting
+            showAlert('Customer added successfully!', 'success', 'customerAlert');
+        });
+
+        document.getElementById('createOrderFormModal').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const orderCustomer = parseInt(document.getElementById('modalOrderCustomer').value);
+            const orderProduct = parseInt(document.getElementById('modalOrderProduct').value);
+            const orderQuantity = parseInt(document.getElementById('modalOrderQuantity').value);
+
+            const product = products.find(p => p.id === orderProduct);
+            if (!product || product.quantity < orderQuantity) {
+                showAlert('Insufficient stock!', 'danger', 'orderAlert');
+                return;
+            }
+
+            const customer = customers.find(c => c.id === orderCustomer);
+            if (!customer) {
+                showAlert('Customer not found!', 'danger', 'orderAlert');
+                return;
+            }
+
+            const newOrder = {
+                id: Date.now(),
+                customerId: orderCustomer,
+                productId: orderProduct,
+                quantity: orderQuantity,
+                date: new Date().toLocaleString(),
+                customerName: customer.name,
+                productName: product.name,
+                total: product.price * orderQuantity
+            };
+
+            product.quantity -= orderQuantity;
+            orders.push(newOrder);
+
+            saveData();
+            renderOrderTable();
+            renderInventoryTable();
+            renderProductTable();
+            updateDashboard();
+            closeCreateOrderModal();
+            showAlert('Order created successfully!', 'success', 'orderAlert'); // Use 'orderAlert' or a modal-specific one
+        });
+
+        // Event listener for the new Record Sale Modal form
+        document.getElementById('recordSaleFormModal').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const saleProduct = parseInt(document.getElementById('modalSaleProduct').value);
+            const saleQuantity = parseInt(document.getElementById('modalSaleQuantity').value);
+
+            const product = products.find(p => p.id === saleProduct);
+            if (!product) { // Should not happen if dropdown is populated correctly
+                showAlert('Product not found!', 'danger', 'saleAlert');
+                return;
+            }
+            if (!product || product.quantity < saleQuantity) {
+                showAlert('Insufficient stock!', 'danger', 'saleAlert');
+                return;
+            }
+
+            const newSale = {
+                id: Date.now(),
+                productId: saleProduct,
+                quantity: saleQuantity,
+                date: new Date().toLocaleString(),
+                productName: product.name,
+                total: product.price * saleQuantity
+            };
+            product.quantity -= saleQuantity;
+            sales.push(newSale);
+
+            saveData();
+            renderSalesTable();
+            renderInventoryTable();
+            renderProductTable(); // To reflect stock changes
+            populateProductDropdown(); // To update available quantities in other dropdowns
+            updateDashboard();
+            
+            document.getElementById('recordSaleFormModal').reset();
+            closeRecordSaleModal();
+            showAlert('Sale recorded successfully!', 'success', 'saleAlert');
+        });
+        // UI Updates
+        function renderProductTable() {
+            const tbody = document.getElementById('productList');
+            tbody.innerHTML = products.map(product => `
+                <tr>
+                    <td>${product.name}</td>
+                    <td>${product.category}</td>
+                    <td>$${product.price.toFixed(2)}</td>
+                    <td>${product.quantity}</td>
+                    <td>
+                        <button class="btn btn-sm btn-danger" onclick="deleteProduct(${product.id})"><i class="fas fa-trash"></i> Delete</button>
+                        <button style="background:var(--success); color:var(--button-text-color); border:none; padding:5px 12px; border-radius:4px; margin-left:5px;" onclick="openEditProductModal(${product.id})"><i class="fas fa-edit"></i> Edit</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function renderCustomerTable() {
+            const tbody = document.getElementById('customerList');
+            tbody.innerHTML = customers.map(customer => `
+                <tr>
+                    <td>${customer.name}</td>
+                    <td>${customer.phone}</td>
+                    <td>${customer.address}</td>
+                    <td>
+                        <button class="btn btn-sm btn-danger" onclick="deleteCustomer(${customer.id})"><i class="fas fa-trash"></i> Delete</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+        // AI Assistant Functionality
+function askAI() {
+    const questionInput = document.getElementById('aiQuestion');
+    const question = questionInput.value.trim();
+    const responseDiv = document.getElementById('aiResponse');
+
+    if (!question) {
+        responseDiv.innerHTML = '<p style="color: var(--danger);">Fadlan qor su\'aal.</p>';
+        return;
+    }
+
+    responseDiv.innerHTML = '<p><em>Waan ka fekerayaa...</em></p>';
+
+    // Simulate AI processing
+    setTimeout(() => {
+        let answer = "Waa i kan Kaaliyaha AI ee Waxqabad. Waxaan kaaga jawaabi karaa su\'aalaha aasaasiga ah.\n";
+        if (question.toLowerCase().includes("salaam") || question.toLowerCase().includes("hi")) {
+            answer += "Salaam! Sideen kuu caawin karaa maanta?";
+        } else if (question.toLowerCase().includes("sidee tahay")) {
+            answer += "Waan fiicanahay, waad ku mahadsantahay inaad i waydiisay!";
+        } else if (question.toLowerCase().includes("magacaa")) {
+            answer += "Magacaygu waa Kaaliyaha AI ee Waxqabad.";
+        } else if (question.toLowerCase().includes("alaabta") || question.toLowerCase().includes("products")) {
+            answer += `Waxaan haynaa ${products.length} nooc oo alaab ah. Waxaad ka eegi kartaa qaybta 'Products'.\nMa jiraa alaab gaar ah oo aad rabto inaad wax ka ogaato?`;
+        } else if (question.toLowerCase().includes("iibka") || question.toLowerCase().includes("sales")) {
+            const totalSalesAmount = sales.reduce((sum, sale) => sum + sale.total, 0);
+            answer += `Wadarta iibka la diiwaan geliyay waa $${totalSalesAmount.toFixed(2)}. Ka eeg qaybta 'Sales' wixii faahfaahin dheeraad ah.`;
+        }
+        // Enhanced Queries:
+        else if (question.toLowerCase().includes("how many products")) {
+            answer += `There are ${products.length} different product types in the system.\n`;
+            const lowStockThreshold = 5; // Products with quantity 1 to 4 are "low stock"
+            const wellStockedProducts = products.filter(p => p.quantity >= lowStockThreshold);
+            const lowStockProducts = products.filter(p => p.quantity > 0 && p.quantity < lowStockThreshold);
+            const outOfStockProducts = products.filter(p => p.quantity === 0);
+
+            answer += ` - ${wellStockedProducts.length} product(s) are well-stocked (>=${lowStockThreshold} units).\n`;
+            if (lowStockProducts.length > 0) {
+                answer += ` - ${lowStockProducts.length} product(s) are low in stock (1-${lowStockThreshold - 1} units): ${lowStockProducts.slice(0,3).map(p=>p.name).join(', ')}${lowStockProducts.length > 3 ? '...' : ''}\n`;
+            } else {
+                answer += ` - No products are currently low in stock.\n`;
+            }
+            if (outOfStockProducts.length > 0) {
+                answer += ` - ${outOfStockProducts.length} product(s) are out of stock: ${outOfStockProducts.slice(0,3).map(p=>p.name).join(', ')}${outOfStockProducts.length > 3 ? '...' : ''}\n`;
+            } else {
+                answer += ` - No products are currently out of stock.\n`;
+            }
+        }
+        else if (question.toLowerCase().match(/tell me about product (.+)/i) || question.toLowerCase().match(/product details for (.+)/i) || question.toLowerCase().match(/what is (.+)/i)) {
+            const match = question.toLowerCase().match(/tell me about product (.+)/i) || question.toLowerCase().match(/product details for (.+)/i) || question.toLowerCase().match(/what is (.+)/i);
+            const productName = match[1].trim().replace(/\?$/, '').trim(); // Remove trailing question mark
+            const product = findProductByName(productName);
+            if (product) {
+                answer += `Product: ${product.name}\nCategory: ${product.category}\nPrice: $${product.price.toFixed(2)}\nQuantity in stock: ${product.quantity}`;
+            } else {
+                answer += `Sorry, I couldn't find a product named "${productName}".`;
+            }
+        }
+        // ... (many more "else if" blocks for different types of questions) ...
+        else if (question.toLowerCase().includes("total deen") || question.toLowerCase().includes("total outstanding amount")) {
+            const totalDeenAmount = orders.reduce((sum, order) => sum + order.total, 0);
+            answer += `The total outstanding amount (Deeyn) from all customers is $${totalDeenAmount.toFixed(2)}.`;
+        }
+        else {
+            answer += "Weli waxaan ku jiraa barasho, laakiin waxaad i waydiin kartaa su'aalo ku saabsan alaabta, iibka, ama macaamiisha.";
+        }
+        responseDiv.innerHTML = `<p>${answer.replace(/\n/g, '<br>')}</p>`;
+    }, 1500);
+}
+
+
+        function renderOrderTable() {
+            const tbody = document.getElementById('orderList');
+            tbody.innerHTML = orders.map(order => `
+                <tr>
+                    <td>${order.customerName}</td>
+                    <td>${order.productName}</td>
+                    <td>${order.quantity}</td>
+                    <td>${order.date}</td>
+                    <td>
+                        <button style="background:var(--success); color:var(--button-text-color); border:none; padding:5px 12px; border-radius:4px; margin-right:5px;" onclick="openEditOrderModal(${order.id})"><i class="fas fa-edit"></i> Edit</button>
+                        <button class="btn btn-sm btn-danger" onclick="deleteOrder(${order.id})"><i class="fas fa-trash"></i> Delete</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function renderSalesTable() {
+            const tbody = document.getElementById('salesList');
+            tbody.innerHTML = sales.map(sale => `
+                <tr>
+                    <td>${sale.productName}</td>
+                    <td>${sale.quantity}</td>
+                    <td>$${sale.total.toFixed(2)}</td>
+                    <td>${sale.date}</td>
+                </tr>
+            `).join('');
+        }
+
+        function renderInventoryTable() {
+            const tbody = document.getElementById('inventoryList');
+            const searchInput = document.getElementById('searchInventory');
+            const searchTerm = searchInput ? searchInput.value.toLowerCase() : '';
+
+            let productsToRender = products;
+
+            if (searchTerm) {
+                productsToRender = products.filter(product =>
+                    product.name.toLowerCase().includes(searchTerm) ||
+                    product.category.toLowerCase().includes(searchTerm)
+                );
+            }
+
+            tbody.innerHTML = productsToRender.map(product => `
+                <tr>
+                    <td>${product.name}</td>
+                    <td>${product.quantity}</td>
+                    <td>${product.category}</td>
+                    <td>
+                        <button onclick="showMedicineDetails(${product.id})" style="padding: 5px 10px; font-size: 0.9em;">Details</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+        function populateProductDropdown() {
+            const selectElements = document.querySelectorAll('select[id$="Product"]'); // Select all dropdowns ending with "Product"
+            // This includes saleProduct, modalOrderProduct
+            selectElements.forEach(select => {
+                select.innerHTML = '<option value="">Select Product</option>' + products.map(product => `
+                    <option value="${product.id}">${product.name} (${product.quantity} available)</option>
+                `).join('');
+            });
+        }
+        
+        function populateCustomerDropdown() {
+            const selectElements = document.querySelectorAll('select[id$="Customer"]'); // e.g., modalOrderCustomer
+            selectElements.forEach(select => {
+                select.innerHTML = '<option value="">Select Customer</option>' + customers.map(customer => `
+                    <option value="${customer.id}">${customer.name}</option>
+                `).join('');
+            });
+        }
+
+        // Specific function to populate dropdowns in the create order modal
+        function populateOrderFormDropdowns() {
+            const customerSelect = document.getElementById('modalOrderCustomer');
+            customerSelect.innerHTML = '<option value="">Select Customer</option>' + customers.map(customer => `
+                <option value="${customer.id}">${customer.name}</option>
+            `).join('');
+        }
+
+       
+        // Delete Functions
+        function deleteProduct(id) {
+            openConfirmDeleteModal(id, 'product');
+        }
+
+        // Confirm Delete Modal Logic
+        let itemToDeleteId = null;
+        let itemTypeToDelete = '';
+
+        function openConfirmDeleteModal(id, type, message = `Are you sure you want to delete this ${type}?`) {
+            itemToDeleteId = id;
+            itemTypeToDelete = type;
+            document.getElementById('confirmDeleteMessage').textContent = message;
+            document.getElementById('confirmDeleteModal').style.display = 'block';
+        }
+
+        function closeConfirmDeleteModal() {
+            document.getElementById('confirmDeleteModal').style.display = 'none';
+            itemToDeleteId = null;
+            itemTypeToDelete = '';
+        }
+
+        document.getElementById('confirmDeleteBtn').addEventListener('click', () => {
+            if (itemTypeToDelete === 'product' && itemToDeleteId !== null) {
+                proceedWithProductDeletion(itemToDeleteId);
+            } else if (itemTypeToDelete === 'labRequest' && itemToDeleteId !== null) {
+                proceedWithLabRequestDeletion(itemToDeleteId);
+            }
+            // TODO: Add similar logic for 'customer' and 'order' if custom confirm modals are desired for them too.
+            // For now, they still use the native confirm().
+            closeConfirmDeleteModal();
+        });
+
+        function proceedWithProductDeletion(id) {
+            products = products.filter(p => p.id !== id);
+            saveData();
+            renderProductTable();
+            renderInventoryTable();
+            populateProductDropdown();
+            updateDashboard();
+            renderMedicineList();
+            showAlert('Product deleted successfully!', 'success', 'productAlert');
+        }
+
+        function deleteCustomer(id) {
+            if (confirm('Are you sure you want to delete this customer?')) {
+                customers = customers.filter(c => c.id !== id);
+                saveData();
+                renderCustomerTable();
+                populateCustomerDropdown();
+                updateDashboard();
+                showAlert('Customer deleted successfully!', 'success', 'customerAlert');
+            }
+        }
+
+        function deleteOrder(id) {
+            if (confirm('Are you sure you want to delete this order?')) {
+                orders = orders.filter(o => o.id !== id);
+                saveData();
+                renderOrderTable();
+                updateDashboard();
+                showAlert('Order deleted successfully!', 'success', 'orderAlert');
+            }
+        }
+
+        // Report Generation
+        function generateSalesReport() {
+            alert('Sales report generated (check console)');
+            console.log('Sales Report:', sales);
+        }
+
+        function generateInventoryReport() {
+            alert('Inventory report generated (check console)');
+            console.log('Inventory Report:', products);
+        }
+
+
+        // Save Data to Local Storage
+        function saveData() {
+            localStorage.setItem('products', JSON.stringify(products));
+            localStorage.setItem('sales', JSON.stringify(sales));
+            localStorage.setItem('customers', JSON.stringify(customers));
+            localStorage.setItem('orders', JSON.stringify(orders));
+        }
+
+        // Clear Data
+        function clearData() {
+            if (confirm('Are you sure you want to clear all data? This cannot be undone.')) {
+                localStorage.clear();
+                products = [];
+                sales = [];
+                customers = [];
+                orders = [];
+                updateDashboard();
+                populateProductDropdown();
+                populateCustomerDropdown();
+                renderProductTable();
+                renderCustomerTable();
+                renderOrderTable();
+                renderSalesTable();
+                renderInventoryTable();
+                renderMedicineList(); // Clear medicine list
+                showAlert('All data cleared successfully!', 'success', 'settingsAlert'); // You might need to create a settingsAlert element
+            }
+        }
+
+        // Download All Application Data
+        function downloadData() {
+            const data = {};
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                try {
+                    // Attempt to parse JSON, otherwise store as is
+                    data[key] = JSON.parse(localStorage.getItem(key));
+                } catch (e) {
+                    data[key] = localStorage.getItem(key);
+                }
+            }
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data, null, 2));
+            const downloadAnchorNode = document.createElement('a');
+            downloadAnchorNode.setAttribute("href", dataStr);
+            downloadAnchorNode.setAttribute("download", "waxqabad_backup_data.json");
+            document.body.appendChild(downloadAnchorNode); // Required for Firefox
+            downloadAnchorNode.click();
+            downloadAnchorNode.remove();
+            showAlert('Dhammaan xogtii waa la soo dejiyay!', 'success', 'settingsAlert'); // Uses toast for success
+        }
+
+
+        // Medicine Details Modal Functions
+        function showMedicineDetails(productId) {
+            const product = products.find(p => p.id === productId);
+            if (product) {
+                const detailsContent = document.getElementById('medicineDetailsContent');
+                detailsContent.innerHTML = `
+                    <p><strong>Name:</strong> ${product.name}</p>
+                    <p><strong>Category:</strong> ${product.category}</p>
+                    <p><strong>Price:</strong> $${product.price.toFixed(2)}</p>
+                    <p><strong>Quantity:</strong> ${product.quantity}</p>
+                `;
+                document.getElementById('medicineDetailsModal').style.display = 'block';
+            }
+        }
+
+        function closeMedicineDetailsModal() {
+            document.getElementById('medicineDetailsModal').style.display = 'none';
+        }
+
+        // Register Customer Modal Functions
+        function openRegisterCustomerModal() {
+            document.getElementById('registerCustomerModal').style.display = 'block';
+        }
+
+        function closeRegisterCustomerModal() {
+            document.getElementById('registerCustomerModal').style.display = 'none';
+        }
+
+        // Add Product Modal Functions
+        function openAddProductModal() {
+            document.getElementById('addProductFormModal').reset(); // Reset form when opening
+            document.getElementById('addProductModal').style.display = 'block';
+        }
+
+        function closeAddProductModal() {
+            document.getElementById('addProductModal').style.display = 'none';
+        }
+
+        // Create Order Modal Functions
+        function openCreateOrderModal() {
+            document.getElementById('createOrderFormModal').reset(); // Reset form
+            populateProductDropdown(); // Repopulate products in modal
+            populateOrderFormDropdowns(); // Repopulate customers in modal
+            document.getElementById('createOrderModal').style.display = 'block';
+        }
+        document.getElementById('editProductFormModal').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const productId = parseInt(document.getElementById('editProductId').value);
+            const name = document.getElementById('editProductName').value;
+            const category = document.getElementById('editProductCategory').value;
+            const price = parseFloat(document.getElementById('editProductPrice').value);
+            const quantity = parseInt(document.getElementById('editProductQuantity').value);
+
+            const productIndex = products.findIndex(p => p.id === productId);
+            if (productIndex > -1) {
+                products[productIndex] = { ...products[productIndex], name, category, price, quantity };
+                saveData();
+                renderProductTable();
+                renderInventoryTable();
+                populateProductDropdown();
+                updateDashboard();
+                renderMedicineList();
+                closeEditProductModal();
+                showAlert('Product updated successfully!', 'success', 'productAlert');
+            } else {
+                showAlert('Product not found for editing!', 'danger', 'productAlert');
+            }
+        });
+
+        // Edit Product Modal Functions
+        function openEditProductModal(productId) {
+            const product = products.find(p => p.id === productId);
+            if (product) {
+                document.getElementById('editProductId').value = product.id;
+                document.getElementById('editProductName').value = product.name;
+                document.getElementById('editProductCategory').value = product.category;
+                document.getElementById('editProductPrice').value = product.price;
+                document.getElementById('editProductQuantity').value = product.quantity;
+                document.getElementById('editProductModal').style.display = 'block';
+            }
+        }
+
+        function closeEditProductModal() {
+            document.getElementById('editProductModal').style.display = 'none';
+        }
+
+        // Record Sale Modal Functions
+        function openRecordSaleModal() {
+            document.getElementById('recordSaleFormModal').reset();
+            populateProductDropdown(); // Ensure product list is up-to-date with stock
+            document.getElementById('recordSaleModal').style.display = 'block';
+        }
+
+        function closeRecordSaleModal() {
+            document.getElementById('recordSaleModal').style.display = 'none';
+        }
+
+
+
+        function closeCreateOrderModal() {
+            document.getElementById('createOrderModal').style.display = 'none';
+        }
+
+        // Edit Order Modal Functions
+        function openEditOrderModal(orderId) {
+            const order = orders.find(o => o.id === orderId);
+            if (order) {
+                document.getElementById('editOrderId').value = order.id;
+
+                // Populate and set customer dropdown
+                const customerSelect = document.getElementById('editOrderCustomer');
+                customerSelect.innerHTML = '<option value="">Select Customer</option>' + customers.map(customer => `
+                    <option value="${customer.id}" ${customer.id === order.customerId ? 'selected' : ''}>${customer.name}</option>
+                `).join('');
+
+                // Populate and set product dropdown
+                const productSelect = document.getElementById('editOrderProduct');
+                productSelect.innerHTML = '<option value="">Select Product</option>' + products.map(product => {
+                    // For the currently selected product in the order, show its original quantity + order quantity
+                    let displayQuantity = product.quantity;
+                    if (product.id === order.productId) {
+                        displayQuantity += order.quantity; // Add back the quantity from this order for accurate display
+                    }
+                    return `<option value="${product.id}" ${product.id === order.productId ? 'selected' : ''}>${product.name} (${displayQuantity} available)</option>`;
+                }).join('');
+                
+                document.getElementById('editOrderQuantity').value = order.quantity;
+                document.getElementById('editOrderModal').style.display = 'block';
+            }
+        }
+
+        function closeEditOrderModal() {
+            document.getElementById('editOrderModal').style.display = 'none';
+        }
+
+        document.getElementById('editOrderFormModal').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const orderId = parseInt(document.getElementById('editOrderId').value);
+            const newCustomerId = parseInt(document.getElementById('editOrderCustomer').value);
+            const newProductId = parseInt(document.getElementById('editOrderProduct').value);
+            const newQuantity = parseInt(document.getElementById('editOrderQuantity').value);
+
+            const orderIndex = orders.findIndex(o => o.id === orderId);
+            if (orderIndex === -1) {
+                showAlert('Order not found!', 'danger', 'orderAlert');
+                return;
+            }
+
+            const originalOrder = { ...orders[orderIndex] }; // Keep a copy of the original
+
+            // Update product stock (add back old quantity, subtract new)
+            const originalProduct = products.find(p => p.id === originalOrder.productId);
+            if (originalProduct) originalProduct.quantity += originalOrder.quantity;
+
+            const newProduct = products.find(p => p.id === newProductId);
+            if (!newProduct || newProduct.quantity < newQuantity) {
+                showAlert('Insufficient stock for the new product or quantity!', 'danger', 'orderAlert');
+                if (originalProduct) originalProduct.quantity -= originalOrder.quantity; // Revert stock change if error
+                return;
+            }
+            newProduct.quantity -= newQuantity;
+
+            // Update order details
+            const newCustomer = customers.find(c => c.id === newCustomerId);
+            orders[orderIndex] = {
+                ...orders[orderIndex],
+                customerId: newCustomerId,
+                productId: newProductId,
+                quantity: newQuantity,
+                customerName: newCustomer ? newCustomer.name : 'N/A',
+                productName: newProduct.name,
+                total: newProduct.price * newQuantity,
+                date: new Date().toLocaleString() // Update date to reflect edit time
+            };
+
+            saveData();
+            renderOrderTable();
+            renderProductTable();
+            renderInventoryTable();
+            populateProductDropdown(); // To reflect stock changes in other dropdowns
+            updateDashboard();
+            closeEditOrderModal();
+            showAlert('Order updated successfully!', 'success', 'orderAlert');
+        });
+
+        // Medicine List Functions
+        function renderMedicineList() {
+            const medicineListDiv = document.getElementById('medicineList');
+            medicineListDiv.innerHTML = ''; // Clear existing list
+
+            // Filter products to only show medicines
+            const medicines = products.filter(product => product.category === 'Medicine');
+
+            if (medicines.length === 0) {
+                medicineListDiv.innerHTML = '<p>No medicines available.</p>';
+                return;
+            }
+
+            medicines.forEach(medicine => {
+                const medicineItem = document.createElement('div');
+                medicineItem.className = 'medicine-item';
+                medicineItem.innerHTML = `
+                    <h4>${medicine.name}</h4>
+                    <p>Quantity: ${medicine.quantity}</p>
+                    <p>Price: $${medicine.price.toFixed(2)}</p>
+                `;
+                medicineListDiv.appendChild(medicineItem);
+            });
+        }
+
+
+// Function to render the customer orders report
+function renderCustomerOrdersReport() {
+    const customerOrdersReportTable = document.getElementById('customerOrdersReportTable');
+    customerOrdersReportTable.innerHTML = customers.map(customer => {
+        const customerOrders = orders.filter(order => order.customerId === customer.id);
+        const totalOrders = customerOrders.reduce((sum, order) => sum + order.total, 0);
+        const orderDetails = customerOrders.map(order => `
+            <p>Product: ${order.productName}, Quantity: ${order.quantity}, Total: $${order.total.toFixed(2)}</p>
+        `).join('');
+
+        return `
+            <tr>
+                <td>${customer.name}</td>
+                <td>${orderDetails || 'No orders'}</td>
+                <td>$${totalOrders.toFixed(2)}</td>
+            </tr>
+        `;
+    }).join('');
+
+    // Display total customers and total orders
+    const totalOrdersCount = orders.length;
+    const customerOrdersReportSummary = document.getElementById('customerOrdersReportSummary');
+    customerOrdersReportSummary.innerHTML = `
+        <p><strong>Total Customers:</strong> ${customers.length}</p>
+        <p><strong>Total Orders:</strong> ${totalOrdersCount}</p>
+    `;
+}
+
+function searchCustomer() {
+    const searchValue = document.getElementById('searchCustomer').value.toLowerCase();
+    const filteredCustomers = customers.filter(customer =>
+        customer.name.toLowerCase().includes(searchValue) ||
+        customer.phone.toLowerCase().includes(searchValue)
+    );
+
+    const tbody = document.getElementById('customerList');
+    tbody.innerHTML = filteredCustomers.map(customer => `
+        <tr>
+            <td>${customer.name}</td>
+            <td>${customer.phone}</td>
+            <td>${customer.address}</td>
+            <td>
+                <button class="btn btn-sm btn-danger" onclick="deleteCustomer(${customer.id})">
+                    <i class="fas fa-trash"></i> Delete
+                </button>
+            </td>
+        </tr>
+    `).join('');
+}
+// Function to print the customer orders report
+function printCustomerOrdersReport() {
+    let reportWindow = window.open('', '', 'width=800,height=600');
+    reportWindow.document.write('<html><head><title>Customer Orders Report</title>');
+    reportWindow.document.write('<style>');
+    reportWindow.document.write('table { width: 100%; border-collapse: collapse; margin-top: 20px; }');
+    reportWindow.document.write('th, td { padding: 12px; text-align: left; border: 1px solid #ddd; }');
+    reportWindow.document.write('th { background-color: #f0f0f0; }');
+    reportWindow.document.write('</style></head><body>');
+    reportWindow.document.write('<h2>Customer Orders Report</h2>');
+    reportWindow.document.write('<table>');
+    reportWindow.document.write('<thead><tr><th>Customer Name</th><th>Order Details</th><th>Total Orders</th></tr></thead>');
+    reportWindow.document.write('<tbody>');
+
+    customers.forEach(customer => {
+        const customerOrders = orders.filter(order => order.customerId === customer.id);
+        const totalOrders = customerOrders.reduce((sum, order) => sum + order.total, 0);
+        const orderDetails = customerOrders.map(order => `
+            Product: ${order.productName}, Quantity: ${order.quantity}, Total: $${order.total.toFixed(2)}
+        `).join('<br>');
+
+        reportWindow.document.write(`
+            <tr>
+                <td>${customer.name}</td>
+                <td>${orderDetails || 'No orders'}</td>
+                <td>$${totalOrders.toFixed(2)}</td>
+            </tr>
+        `);
+    });
+
+    reportWindow.document.write('</tbody></table>');
+    reportWindow.document.write(`<p><strong>Total Customers:</strong> ${customers.length}</p>`);
+    reportWindow.document.write('</body></html>');
+    reportWindow.document.close();
+    reportWindow.print();
+}
+
+function searchCustomerOrders() {
+    const searchValue = document.getElementById('searchCustomerOrders').value.toLowerCase();
+    const filteredCustomers = customers.filter(customer =>
+        customer.name.toLowerCase().includes(searchValue)
+    );
+
+    const customerOrdersReportTable = document.getElementById('customerOrdersReportTable');
+    customerOrdersReportTable.innerHTML = filteredCustomers.map(customer => {
+        const customerOrders = orders.filter(order => order.customerId === customer.id);
+        const totalOrders = customerOrders.reduce((sum, order) => sum + order.total, 0);
+        const orderDetails = customerOrders.map(order => `
+            <p>Product: ${order.productName}, Quantity: ${order.quantity}, Total: $${order.total.toFixed(2)}</p>
+        `).join('');
+
+        return `
+            <tr>
+                <td>${customer.name}</td>
+                <td>${orderDetails || 'No orders'}</td>
+                <td>$${totalOrders.toFixed(2)}</td>
+            </tr>
+        `;
+    }).join('');
+
+    // Update the summary
+    const totalOrdersCount = orders.filter(order =>
+        filteredCustomers.some(customer => customer.id === order.customerId)
+    ).length;
+
+    const customerOrdersReportSummary = document.getElementById('customerOrdersReportSummary');
+    customerOrdersReportSummary.innerHTML = `
+        <p><strong>Total Customers:</strong> ${filteredCustomers.length}</p>
+        <p><strong>Total Orders:</strong> ${totalOrdersCount}</p>
+    `;
+}
+function toggleLabMenu(event) {
+    event.preventDefault();
+    const submenu = document.getElementById('lab-submenu');
+    const arrow = document.getElementById('lab-arrow');
+    if (submenu.style.display === "none" || submenu.style.display === "") {
+        submenu.style.display = "block";
+        arrow.style.transform = "rotate(180deg)";
+    } else {
+        submenu.style.display = "none";
+        arrow.style.transform = "rotate(0deg)";
+    }
+}
+
+
+function toggleCustomerMenu(event) {
+    event.preventDefault();
+    const submenu = document.getElementById('customer-submenu');
+    const arrow = document.getElementById('customer-arrow');
+    if (submenu.style.display === "none" || submenu.style.display === "") {
+        submenu.style.display = "block";
+        arrow.style.transform = "rotate(180deg)";
+    } else {
+        submenu.style.display = "none";
+        arrow.style.transform = "rotate(0deg)";
+    }
+}
+// Consolidated updateDashboard Function
+function updateDashboard() {
+    if (document.getElementById('totalProducts')) {
+        const productsInStockCount = products.filter(product => product.quantity > 0).length;
+        document.getElementById('totalProducts').textContent = productsInStockCount;
+    }
+    if (document.getElementById('totalSales')) {
+        const totalSalesAmount = sales.reduce((sum, sale) => sum + sale.total, 0);
+        document.getElementById('totalSales').textContent = `$${totalSalesAmount.toFixed(2)}`;
+    }
+    if (document.getElementById('lowStock')) {
+        // Changed to count products with quantity exactly 0
+        const lowStockCount = products.filter(product => product.quantity === 0).length;
+        document.getElementById('lowStock').textContent = lowStockCount;
+    }
+    if (document.getElementById('totalCustomers')) {
+        document.getElementById('totalCustomers').textContent = customers.length;
+    }
+    if (document.getElementById('totalInventory')) {
+        const totalInventoryCount = products.reduce((sum, product) => sum + product.quantity, 0);
+        document.getElementById('totalInventory').textContent = totalInventoryCount;
+    }
+    if (document.getElementById('totalOrders')) {
+        document.getElementById('totalOrders').textContent = orders.length; // Number of orders
+    }
+    if (document.getElementById('totalProductValue')) {
+        const totalProdValue = products.reduce((sum, product) => sum + (product.price * product.quantity), 0);
+        document.getElementById('totalProductValue').textContent = `$${totalProdValue.toFixed(2)}`;
+    }
+    if (document.getElementById('totalLabs')) {
+        document.getElementById('totalLabs').textContent = labRequests.length;
+    }
+    if (document.getElementById('totalDeeynTire')) {
+        // Assuming DeeynTire total is based on outstanding customer orders
+        const totalDeeyn = orders.reduce((sum, order) => sum + order.total, 0);
+        document.getElementById('totalDeeynTire').textContent = `$${totalDeeyn.toFixed(2)}`;
+    }
+}
+
+// Add at the end of your <script> tag
+
+function showDeenReader() {
+    // Table: Name, Phone, Address, Total Amount
+    let html = `
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Address</th>
+                    <th>Total Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+    `;
+    customers.forEach(customer => {
+        const customerOrders = orders.filter(order => order.customerId === customer.id);
+        const total = customerOrders.reduce((sum, order) => sum + order.total, 0);
+        html += `
+            <tr>
+                <td>${customer.name}</td>
+                <td>${customer.phone}</td>
+                <td>${customer.address}</td>
+                <td>$${total.toFixed(2)}</td>
+            </tr>
+        `;
+    });
+    html += '</tbody></table>';
+    document.getElementById('deeynTireContent').innerHTML = html;
+}
+
+function showCustomerCheck() {
+    // Table: Name, Phone, Total Amount (editable)
+    let html = `
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Total Amount</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+    `;
+    customers.forEach(customer => {
+        const customerOrders = orders.filter(order => order.customerId === customer.id);
+        const total = customerOrders.reduce((sum, order) => sum + order.total, 0);
+        html += `
+            <tr>
+                <td>${customer.name}</td>
+                <td>${customer.phone}</td>
+                <td>
+                    <input type="number" value="${total.toFixed(2)}" min="0" step="0.01" style="width:100px"
+                        onchange="updateCustomerTotal(${customer.id}, this.value)">
+                </td>
+                <td>
+                    <button onclick="updateCustomerTotal(${customer.id}, this.parentNode.parentNode.querySelector('input').value)">Save</button>
+                </td>
+            </tr>
+        `;
+    });
+    html += '</tbody></table>';
+    document.getElementById('deeynTireContent').innerHTML = html;
+}
+
+function updateCustomerTotal(customerId, newTotal) {
+    // This demo only shows an alert. You can implement logic to update orders if needed.
+    alert('Total amount for customer ID ' + customerId + ' changed to $' + parseFloat(newTotal).toFixed(2));
+    // To persist, you would need to update the orders array accordingly.
+}
+
+function showCustomerMessenger() {
+    // Table: Name, Phone, Total Amount, Message Button
+    let html = `
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Total Amount</th>
+                    <th>Send Message</th>
+                </tr>
+            </thead>
+            <tbody>
+    `;
+    customers.forEach(customer => {
+        const customerOrders = orders.filter(order => order.customerId === customer.id);
+        const total = customerOrders.reduce((sum, order) => sum + order.total, 0);
+        html += `
+            <tr>
+                <td>${customer.name}</td>
+                <td>${customer.phone}</td>
+                <td>$${total.toFixed(2)}</td>
+                <td>
+                    <button onclick="openCustomerMessengerModal('${customer.name}', '${customer.phone}', '${total.toFixed(2)}')">Message</button>
+                </td>
+            </tr>
+        `;
+    });
+    html += '</tbody></table>';
+    document.getElementById('deeynTireContent').innerHTML = html;
+}
+
+function openCustomerMessengerModal(name, phone, total) {
+    document.getElementById('messengerCustomerInfo').innerHTML = `
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Phone:</strong> ${phone}</p>
+        <p><strong>Total Amount:</strong> $${total}</p>
+    `;
+    document.getElementById('messengerMessage').value = "Waqtiga lacaga bixinta waa la jogaa";
+    document.getElementById('customerMessengerModal').style.display = 'block';
+}
+
+function closeCustomerMessengerModal() {
+    document.getElementById('customerMessengerModal').style.display = 'none';
+}
+// Replace your updateCustomerTotal function with this version
+
+function updateCustomerTotal(customerId, newTotal) {
+    // Find all orders for this customer
+    const customerOrders = orders.filter(order => order.customerId === customerId);
+    const currentTotal = customerOrders.reduce((sum, order) => sum + order.total, 0);
+    const difference = parseFloat(newTotal) - currentTotal;
+
+    if (customerOrders.length === 0) {
+        alert('No orders found for this customer.');
+        return;
+    }
+
+    // Distribute the difference proportionally to each order
+    let distributed = 0;
+    customerOrders.forEach((order, idx) => {
+        if (idx === customerOrders.length - 1) {
+            // Last order gets the remaining difference to avoid floating point issues
+            order.total += difference - distributed;
+        } else {
+            const share = (order.total / currentTotal) * difference;
+            order.total += share;
+            distributed += share;
+        }
+        // Ensure no negative totals
+        order.total = Math.max(0, order.total);
+    });
+
+    saveData();
+    showCustomerCheck();
+    alert('Customer total updated and saved!');
+}
+function openCustomerMessengerModal(name, phone, total) {
+    // Prevent opening the modal if total amount is 0
+    if (parseFloat(total) === 0) {
+        alert("This customer does not have any outstanding amount to send a message.");
+        return;
+    }
+    document.getElementById('messengerCustomerInfo').innerHTML = `
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Phone:</strong> ${phone}</p>
+        <p><strong>Total Amount:</strong> $${total}</p>
+    `;
+    document.getElementById('messengerMessage').value = "Waqtiga lacaga bixinta waa la jogaa";
+    document.getElementById('customerMessengerModal').style.display = 'block';
+}
+
+function filterDeeynTire() {
+    const searchValue = document.getElementById('searchDeeynTire').value.toLowerCase();
+    // Detect which DeeynTire tool is currently shown
+    const contentElement = document.getElementById('deeynTireContent');
+    const contentHTML = contentElement.innerHTML;
+    if (contentHTML.includes('Deeyn Aging Report')) {
+        showDeeynAgingReport(searchValue);
+    } else if (contentHTML.includes('Send Message')) {
+        showCustomerMessengerFiltered(searchValue);
+    } else if (content.innerHTML.includes('Total Amount') && content.innerHTML.includes('Action')) {
+        showCustomerCheckFiltered(searchValue);
+    } else {
+        showDeenReaderFiltered(searchValue);
+    }
+}
+
+
+// Filtered DeeynTire functions
+function showDeenReaderFiltered(searchValue = '') {
+    let html = `
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Address</th>
+                    <th>Total Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+    `;
+    customers
+        .filter(customer =>
+            customer.name.toLowerCase().includes(searchValue) ||
+            customer.phone.toLowerCase().includes(searchValue)
+        )
+        .forEach(customer => {
+            const customerOrders = orders.filter(order => order.customerId === customer.id);
+            const total = customerOrders.reduce((sum, order) => sum + order.total, 0);
+            html += `
+                <tr>
+                    <td>${customer.name}</td>
+                    <td>${customer.phone}</td>
+                    <td>${customer.address}</td>
+                    <td>$${total.toFixed(2)}</td>
+                </tr>
+            `;
+        });
+    html += '</tbody></table>';
+    document.getElementById('deeynTireContent').innerHTML = html;
+}
+
+function showCustomerCheckFiltered(searchValue = '') {
+    let html = `
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Total Amount</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+    `;
+    customers
+        .filter(customer =>
+            customer.name.toLowerCase().includes(searchValue) ||
+            customer.phone.toLowerCase().includes(searchValue)
+        )
+        .forEach(customer => {
+            const customerOrders = orders.filter(order => order.customerId === customer.id);
+            const total = customerOrders.reduce((sum, order) => sum + order.total, 0);
+            html += `
+                <tr>
+                    <td>${customer.name}</td>
+                    <td>${customer.phone}</td>
+                    <td>
+                        <input type="number" value="${total.toFixed(2)}" min="0" step="0.01" style="width:100px"
+                            onchange="updateCustomerTotal(${customer.id}, this.value)">
+                    </td>
+                    <td>
+                        <button onclick="updateCustomerTotal(${customer.id}, this.parentNode.parentNode.querySelector('input').value)">Save</button>
+                    </td>
+                </tr>
+            `;
+        });
+    html += '</tbody></table>';
+    document.getElementById('deeynTireContent').innerHTML = html;
+}
+
+function showCustomerMessengerFiltered(searchValue = '') {
+    let html = `
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Total Amount</th>
+                    <th>Send Message</th>
+                </tr>
+            </thead>
+            <tbody>
+    `;
+    customers
+        .filter(customer =>
+            customer.name.toLowerCase().includes(searchValue) ||
+            customer.phone.toLowerCase().includes(searchValue)
+        )
+        .forEach(customer => {
+            const customerOrders = orders.filter(order => order.customerId === customer.id);
+            const total = customerOrders.reduce((sum, order) => sum + order.total, 0);
+            html += `
+                <tr>
+                    <td>${customer.name}</td>
+                    <td>${customer.phone}</td>
+                    <td>$${total.toFixed(2)}</td>
+                    <td>
+                        <button onclick="openCustomerMessengerModal('${customer.name}', '${customer.phone}', '${total.toFixed(2)}')">Message</button>
+                    </td>
+                </tr>
+            `;
+        });
+    html += '</tbody></table>';
+    document.getElementById('deeynTireContent').innerHTML = html;
+}
+document.getElementById('customerMessengerForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    alert('Message sent: ' + document.getElementById('messengerMessage').value);
+    closeCustomerMessengerModal();
+});
+
+function showDeeynAgingReport(searchValue = '') {
+    let html = `
+        <h3><i class="fas fa-hourglass-half"></i> Deeyn Aging Report</h3>
+        <p>Warbixintan waxay muujineysaa lacagaha harsan ee macaamiisha, iyadoo loo kala saaray muddada ay taagnaayeen.</p>
+        <table id="deeynAgingTable">
+            <thead>
+                <tr>
+                    <th>Customer Name (Phone)</th>
+                    <th>0-30 Maalmood</th>
+                    <th>31-60 Maalmood</th>
+                    <th>61-90 Maalmood</th>
+                    <th>90+ Maalmood</th>
+                    <th>Wadarta Guud</th>
+                </tr>
+            </thead>
+            <tbody>
+    `;
+
+    const now = new Date();
+
+    customers
+        .filter(customer =>
+            !searchValue || 
+            customer.name.toLowerCase().includes(searchValue) ||
+            (customer.phone && customer.phone.toLowerCase().includes(searchValue))
+        )
+        .forEach(customer => {
+            const customerOrders = orders.filter(order => order.customerId === customer.id);
+            if (customerOrders.length === 0) return; 
+
+            let ageBuckets = { '0-30': 0, '31-60': 0, '61-90': 0, '90+': 0 };
+            let totalDue = 0;
+
+            customerOrders.forEach(order => {
+                const orderDate = new Date(order.date); 
+                if (isNaN(orderDate.getTime())) {
+                    console.warn(`Taariikhda lama fahmin dalabka ${order.id}: ${order.date}. Waxaa lagu daray qaybta 90+ maalmood.`);
+                    ageBuckets['90+'] += order.total; 
+                    totalDue += order.total;
+                    return;
+                }
+
+                const diffTime = Math.abs(now - orderDate);
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                totalDue += order.total;
+
+                if (diffDays <= 30) ageBuckets['0-30'] += order.total;
+                else if (diffDays <= 60) ageBuckets['31-60'] += order.total;
+                else if (diffDays <= 90) ageBuckets['61-90'] += order.total;
+                else ageBuckets['90+'] += order.total;
+            });
+
+            if (totalDue > 0) { 
+                html += `
+                    <tr>
+                        <td>${customer.name} ${customer.phone ? '(' + customer.phone + ')' : ''}</td>
+                        <td>$${ageBuckets['0-30'].toFixed(2)}</td>
+                        <td>$${ageBuckets['31-60'].toFixed(2)}</td>
+                        <td>$${ageBuckets['61-90'].toFixed(2)}</td>
+                        <td>$${ageBuckets['90+'].toFixed(2)}</td>
+                        <td><b>$${totalDue.toFixed(2)}</b></td>
+                    </tr>
+                `;
+            }
+        });
+    html += '</tbody></table>';
+    document.getElementById('deeynTireContent').innerHTML = html;
+}
+
+document.getElementById('toggleDeeynSearch').addEventListener('click', function() {
+    const input = document.getElementById('searchDeeynTire');
+    if (input.style.display === 'none' || input.style.display === '') {
+        input.style.display = 'block';
+        input.focus();
+    } else {
+        input.style.display = 'none';
+        input.value = '';
+        filterDeeynTire();
+    }
+});
+
+ // Sidebar open/close logic
+    const sidebar = document.getElementById('sidebar');
+    const sidebarToggleBtn = document.getElementById('sidebarToggleBtn');
+    const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+    function openSidebar() {
+        sidebar.classList.add('open');
+        sidebarOverlay.classList.add('active');
+    }
+    function closeSidebar() {
+        sidebar.classList.remove('open');
+        sidebarOverlay.classList.remove('active');
+    }
+
+    sidebarToggleBtn.addEventListener('click', openSidebar);
+    sidebarOverlay.addEventListener('click', closeSidebar);
+
+    // Optional: close sidebar when a nav link is clicked (on small screens)
+    document.querySelectorAll('.sidebar .nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+            if (window.innerWidth <= 900) closeSidebar();
+        });
+    });
+
+    // ...existing code...
+
+// Lab Requests Data
+let labRequests = JSON.parse(localStorage.getItem('labRequests')) || [];
+
+// Render Lab Requests Table
+function renderLabRequestsTable() {
+    const tbody = document.getElementById('labRequestsList');
+    if (!tbody) return;
+    tbody.innerHTML = labRequests.map((req, idx) => `
+        <tr>
+            <td>${idx + 1}</td>
+            <td>${req.name}</td>
+            <td>${req.phone}</td>
+            <td>${req.gender || 'N/A'}</td>
+            <td>${req.tests.join(', ')}</td>
+            <td>${req.payment === 'money' ? 'Money' : 'No Money'}</td>
+            <td>
+                <button onclick="deleteLabRequest(${idx})" style="color:#fff;background:#dc3545;border:none;padding:5px 12px;border-radius:4px;"><i class="fas fa-trash"></i> Delete</button>
+                <button onclick="openEditLabRequestModal(${idx})" style="color:var(--button-text-color);background:var(--success);border:none;padding:5px 12px;border-radius:4px;margin-left:5px;"><i class="fas fa-edit"></i> Edit</button>
+
+            </td>
+        </tr>
+    `).join('');    
+}
+
+// Add Lab Request
+document.getElementById('labRegisterForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const name = document.getElementById('labName').value.trim();
+    const phone = document.getElementById('labPhone').value.trim();
+    const address = document.getElementById('labAddress').value.trim();
+    const blood = document.getElementById('labBlood').value.trim();
+    const comment = document.getElementById('labComment').value.trim();
+    const selectedTestCheckboxes = document.querySelectorAll('#labTestsCheckboxes input[name="labTests"]:checked');
+    const tests = Array.from(selectedTestCheckboxes).map(checkbox => checkbox.value);
+    const gender = document.querySelector('input[name="labGender"]:checked')?.value;
+    const payment = document.getElementById('labPayment').value;
+
+    if (!name || !phone || !gender || tests.length === 0) {
+        showAlert('Please fill all required fields (Name, Phone, Gender) and select at least one test.', 'danger', 'labAlert');
+        return;
+    }
+
+    labRequests.push({
+        name, phone, address, blood, gender, comment, tests, payment, result: '', // Initialize result
+        date: new Date().toLocaleString(),
+        id: Date.now() // Add a unique ID
+    });
+    localStorage.setItem('labRequests', JSON.stringify(labRequests));
+    renderLabRequestsTable();
+    updateDashboard(); // Update dashboard totals
+    document.getElementById('labRegisterForm').reset();
+    // Manually uncheck checkboxes after reset
+    selectedTestCheckboxes.forEach(cb => cb.checked = false);
+    // Manually uncheck radio buttons
+    document.querySelectorAll('input[name="labGender"]').forEach(radio => radio.checked = false);
+
+    showAlert('Lab request registered successfully!', 'success', 'labAlert');
+});
+
+// Delete Lab Request
+function deleteLabRequest(idx) {
+    // The 'idx' is the itemToDeleteId for lab requests
+    openConfirmDeleteModal(idx, 'labRequest', 'Are you sure you want to delete this lab request?');
+}
+
+function proceedWithLabRequestDeletion(idx) {
+    labRequests.splice(idx, 1);
+    localStorage.setItem('labRequests', JSON.stringify(labRequests));
+    renderLabRequestsTable();
+    renderLabResultsTable(); // Also re-render results table in case the deleted request was there
+    updateDashboard(); // Update dashboard totals
+    showAlert('Lab request deleted successfully!', 'success', 'labAlert'); // Use labAlert or a generic one
+}
+
+// All available lab tests (same as in the registration form)
+const allLabTests = [
+    "Malaria test", "Typhoid test", "HB test", "Urine test", "Hcv test",
+    "Hbv test", "H pylori test", "Syphilis test", "ESR test", "RA test",
+    "HCG test", "Stool examination", "Blood group", "P24 test", "CBC",
+    "Glucose test", "CRP test", "Liver function tests", "Renal function tests",
+    "RF test", "Cholesterol test", "Triglycerides test"
+];
+
+// Populate checkboxes for the edit lab request modal
+function populateEditLabTestsCheckboxes(selectedTests = []) {
+    const container = document.getElementById('editLabTestsCheckboxesContainer');
+    if (!container) return;
+    container.innerHTML = ''; // Clear previous checkboxes
+    allLabTests.forEach(testName => {
+        const isChecked = selectedTests.includes(testName);
+        container.innerHTML += `
+            <label><input type="checkbox" name="editLabTests" value="${testName}" ${isChecked ? 'checked' : ''}> ${testName}</label><br>
+        `;
+    });
+}
+
+// Open Edit Lab Request Modal
+function openEditLabRequestModal(idx) {
+    const request = labRequests[idx];
+    if (!request) return;
+
+    document.getElementById('editLabRequestIdx').value = idx;
+    document.getElementById('editLabName').value = request.name;
+    document.getElementById('editLabPhone').value = request.phone;
+    document.getElementById('editLabAddress').value = request.address || '';
+    document.getElementById('editLabBlood').value = request.blood || '';
+    document.getElementById('editLabComment').value = request.comment || '';
+
+    // Set gender radio button
+    const genderRadios = document.getElementsByName('editLabGender');
+    for (let radio of genderRadios) {
+        if (radio.value === request.gender) {
+            radio.checked = true;
+        }
+    }
+    
+    populateEditLabTestsCheckboxes(request.tests);
+    // Note: Payment status is not part of this modal in the current request,
+    // but if needed, it would be set here:
+    // document.getElementById('editLabPayment').value = request.payment;
+
+    document.getElementById('editLabRequestModal').style.display = 'block';
+}
+
+function closeEditLabRequestModal() {
+    document.getElementById('editLabRequestModal').style.display = 'none';
+}
+
+document.getElementById('editLabRequestForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const idx = parseInt(document.getElementById('editLabRequestIdx').value, 10);
+    const selectedTestCheckboxes = document.querySelectorAll('#editLabTestsCheckboxesContainer input[name="editLabTests"]:checked');
+    const updatedGender = document.querySelector('input[name="editLabGender"]:checked')?.value;
+    const updatedTests = Array.from(selectedTestCheckboxes).map(checkbox => checkbox.value);
+
+    labRequests[idx].name = document.getElementById('editLabName').value.trim();
+    labRequests[idx].phone = document.getElementById('editLabPhone').value.trim();
+    labRequests[idx].address = document.getElementById('editLabAddress').value.trim();
+    labRequests[idx].blood = document.getElementById('editLabBlood').value.trim();
+    labRequests[idx].gender = updatedGender;
+    labRequests[idx].comment = document.getElementById('editLabComment').value.trim();
+    labRequests[idx].tests = updatedTests;
+    // labRequests[idx].payment = document.getElementById('editLabPayment').value; // If payment status was included
+
+    localStorage.setItem('labRequests', JSON.stringify(labRequests));
+    renderLabRequestsTable();
+    closeEditLabRequestModal();
+    showAlert('Lab request updated successfully!', 'success', 'productAlert'); // Assuming productAlert
+});
+// Consolidated showSection Function
+function showSection(sectionId) {
+    document.querySelectorAll('.section').forEach(section => {
+        section.style.display = 'none';
+    });
+    const currentSection = document.getElementById(sectionId);
+    if (currentSection) {
+        currentSection.style.display = 'block';
+    } else {
+        console.error(`Section with ID "${sectionId}" not found.`);
+        // Fallback to dashboard if section not found
+        const dashboardSection = document.getElementById('dashboard');
+        if (dashboardSection) dashboardSection.style.display = 'block';
+        return;
+    }
+
+    // Call specific rendering functions based on the section
+    switch (sectionId) {
+        case 'inventory':
+            renderInventoryTable();
+            break;
+        case 'medicineListSection':
+            renderMedicineList();
+            break;
+        case 'customerOrdersReport':
+            renderCustomerOrdersReport();
+            break;
+        case 'registerLab':
+            renderLabRequestsTable();
+            break;
+        case 'resultLab':
+            renderLabResultsTable(); // Ensure this calls the searchable version
+            break;
+        case 'aiAssistant':
+            const aiQuestionInput = document.getElementById('aiQuestion');
+            if (aiQuestionInput) {
+                aiQuestionInput.focus();
+            }
+            break;
+        // Add other cases as needed for other sections
+    }
+}
+function renderLabResultsTable() {
+    const tbody = document.getElementById('labResultsList');
+    if (!tbody) return;
+    tbody.innerHTML = labRequests.map((req, idx) => `
+        <tr>
+            <td>${req.name}</td>
+            <td>${req.phone}</td>
+            <td>${req.tests.join(', ')}</td>
+            <td>${req.result ? req.result : ''}</td>
+            <td>
+                <button onclick="openEditLabResultModal(${idx})" style="background:var(--primary);color:var(--button-text-color);border:none;padding:5px 12px;border-radius:4px;">
+                    <i class="fas fa-edit"></i> Edit
+                </button>
+            </td>
+        </tr>
+    `).join('');
+}
+
+// Edit Lab Result Modal Logic
+function openEditLabResultModal(idx) {
+    const req = labRequests[idx];
+    document.getElementById('editLabResult').value = req.result || '';
+    document.getElementById('editLabIdx').value = idx;
+    document.getElementById('editLabResultModal').style.display = 'block';
+}
+function closeEditLabResultModal() {
+    document.getElementById('editLabResultModal').style.display = 'none';
+}
+document.getElementById('editLabResultForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const idx = parseInt(document.getElementById('editLabIdx').value, 10);
+    labRequests[idx].result = document.getElementById('editLabResult').value;
+    localStorage.setItem('labRequests', JSON.stringify(labRequests));
+    renderLabResultsTable();
+    closeEditLabResultModal();
+});
+
+function renderLabResultsTable() {
+    const tbody = document.getElementById('labResultsList');
+    if (!tbody) return;
+    const searchValue = (document.getElementById('searchLabResults')?.value || '').toLowerCase();
+
+    const filtered = labRequests.filter(req =>
+        req.name.toLowerCase().includes(searchValue) ||
+        req.phone.toLowerCase().includes(searchValue) ||
+        req.tests.join(', ').toLowerCase().includes(searchValue)
+    );
+
+    tbody.innerHTML = filtered.map(req => {
+        // Find the original index of the request in the main labRequests array
+        const originalIndex = labRequests.findIndex(r => r.id === req.id);
+        return `
+        <tr data-original-idx="${originalIndex}">
+            <td>${filtered.indexOf(req) + 1}</td>
+            <td>${req.name}</td>
+            <td>${req.phone}</td>
+            <td>${req.gender || 'N/A'}</td>
+            <td>${req.tests.join(', ')}</td>
+            <td>${req.result ? req.result : ''}</td>
+            <td>
+                <button class="action-button" onclick="openEditLabResultModal(${originalIndex})" style="background:var(--primary);color:var(--button-text-color);border:none;">
+                    <i class="fas fa-edit"></i> Edit
+                </button>
+            </td>
+        </tr>
+    `;
+    }).join('');
+}
+
+
+// Consolidated window.onclick for closing modals
+window.onclick = function (event) {
+    const medicineModal = document.getElementById('medicineDetailsModal');
+    const registerCustomerModal = document.getElementById('registerCustomerModal');
+    const labResultModal = document.getElementById('editLabResultModal');
+    const customerMessengerModal = document.getElementById('customerMessengerModal');
+    const editLabRequestModal = document.getElementById('editLabRequestModal');
+    const addProductModal = document.getElementById('addProductModal');
+    const createOrderModal = document.getElementById('createOrderModal');
+    const editProductModal = document.getElementById('editProductModal');
+    const recordSaleModal = document.getElementById('recordSaleModal');
+    const editOrderModal = document.getElementById('editOrderModal');
+    const confirmDeleteModal = document.getElementById('confirmDeleteModal');
+
+    if (medicineModal && event.target == medicineModal) medicineModal.style.display = "none";
+    if (registerCustomerModal && event.target == registerCustomerModal) registerCustomerModal.style.display = "none";
+    if (labResultModal && event.target == labResultModal) labResultModal.style.display = "none";
+    if (customerMessengerModal && event.target == customerMessengerModal) customerMessengerModal.style.display = "none";
+    if (editLabRequestModal && event.target == editLabRequestModal) editLabRequestModal.style.display = "none";
+    if (addProductModal && event.target == addProductModal) addProductModal.style.display = "none";
+    if (createOrderModal && event.target == createOrderModal) createOrderModal.style.display = "none";
+    if (editProductModal && event.target == editProductModal) editProductModal.style.display = "none";
+    if (editOrderModal && event.target == editOrderModal) editOrderModal.style.display = "none";
+    if (recordSaleModal && event.target == recordSaleModal) recordSaleModal.style.display = "none";
+    if (confirmDeleteModal && event.target == confirmDeleteModal) closeConfirmDeleteModal();
+
+    // Add other modals here if they need this behavior
+};
+
+function openCustomerMessengerModal(name, phone, total) {
+    // Prevent opening the modal if total amount is 0
+    if (parseFloat(total) === 0) {
+        alert("This customer does not have any outstanding amount to send a message.");
+        return;
+    }
+    // Fariin otomaatig ah oo la sameeyo
+    const message = `Salaam ${name},\nWaxaan kaa xasuusinaynaa inaad bixid Lacagta Wadarta: $${total}.\nFadlan ku dir lambarkaaga EVC Plus: *712*${619313034}*${total}#.\nTusaale: *789*332323*lacgta# → Dir $lacagta.!\n\nMahadsanid!`;
+    document.getElementById('messengerCustomerInfo').innerHTML = `
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Phone:</strong> ${phone}</p>
+        <p><strong>Total Amount:</strong> $${total}</p>
+    `;
+    document.getElementById('messengerMessage').value = message;
+    document.getElementById('customerMessengerModal').style.display = 'block';
+}
+
+
+
+
+
+    </script>
+</body>
+</html>
